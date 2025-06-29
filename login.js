@@ -8,8 +8,10 @@ const EsqueciSenha = document.querySelector("#EsqueciSenha");
 const Entrar = document.querySelector("#Entrar");
 const ErroLogin_msg= document.querySelector("#ErroLogin_msg");
 
-const usuariosRegistro = localStorage.getItem('usuarios');
+const usuariosRegistro = localStorage.getItem('Users');
 const usuarios = JSON.parse(usuariosRegistro);
+
+
 
 
 
@@ -20,8 +22,16 @@ ErroLogin_msg.innerHTML="!Preencha TODOS os campos, por favor!";
 }else if(LoginSenha.value.length<8){
   ErroLogin_msg.innerHTML="A senha tem que conter no mínimo 8 dígitos";
 }else{
-
-ErroLogin_msg.innerHTML="Entrando... ✅"
+    usuarios.forEach(usuario => {
+        if(usuario.email == LoginEmail.value && usuario.senha == LoginSenha.value){
+            const userLogado= JSON.stringify(usuario);
+            localStorage.setItem('userLogado',userLogado);
+        }
+    });
+    window.location.href="perfil.html";
+    ErroLogin_msg.innerHTML="Entrando... ✅";
 }
+LoginSenha.value="";
+LoginEmail.value="";
 
 })
