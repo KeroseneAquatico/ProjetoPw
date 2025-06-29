@@ -3,7 +3,7 @@ const listaDiv = document.querySelector("#perfilDiv");
 const acharUserLogado = localStorage.getItem('userLogado');
 const userLogado = JSON.parse(acharUserLogado);
 
-const FotosPerfil=["","","","","","","","","",""]
+const FotosPerfil=["/img1.jpg","/img2.jpg","/img3.jpg","/img4.jpg","/img5.jpg","/img6.jpg","/img7.jpg","/img8.jpg","/img9.jpg","/img10.jpg"]
 
 function MostrarPerfil (){
     userLogado.perfil.forEach(profile => {
@@ -62,13 +62,7 @@ if (!selecionada) {
   console.log("Nenhuma div foi selecionada ainda.");
 } else {
   console.log("Div selecionada:", selecionada);
-  if(!NomePerfil.value==""){
-  MensagemPerfil.innerHTML="Perfil criado com SUCESSO"
-  CriarPerfil ();
-  }else{
-   MensagemPerfil.innerHTML="Insira o seu nome, por favor!"
-   NomePerfil.value="";
-  }
+ 
 
 }
 
@@ -109,15 +103,23 @@ divCriaPerfil.classList.add("criar-perfil");
     const nome = NomePerfil.value;
     const selecionada = galeria.querySelector(".selecionado img");
 
-    if (!nome) {
-      MensagemPerfil.textContent = "Insira o seu nome, por favor!";
-      return;
-    }
+     if(!NomePerfil.value==""){
+    MensagemPerfil.innerHTML="Perfil criado com SUCESSO"
+    CriarPerfil ();
+   }else{
+    MensagemPerfil.innerHTML="Insira o seu nome, por favor!"
+    NomePerfil.value="";
+   }
 
-    if (!selecionada) {
-      MensagemPerfil.textContent = "Escolha uma foto!";
-      return;
-    }
+    // if (!nome) {
+    //   MensagemPerfil.textContent = "Insira o seu nome, por favor!";
+    //   return;
+    // }
+
+    // if (!selecionada) {
+    //   MensagemPerfil.textContent = "Escolha uma foto!";
+    //   return;
+    // }
 
     // Atualizar o perfil no usuário logado
     const novoPerfil = {
@@ -141,4 +143,5 @@ divCriaPerfil.classList.add("criar-perfil");
     MensagemPerfil.textContent = "Perfil criado com sucesso!";
 
     ListaFotos ()
+})
 }
