@@ -26,6 +26,11 @@ const imgPerfil = document.querySelector("#imgPerfil");
 const perfilUsuario = localStorage.getItem('perfilLogado');
 const perfilLogado = JSON.parse(perfilUsuario);
 
+const acharUserLogado = localStorage.getItem('userLogado');
+const userLogado = JSON.parse(acharUserLogado);
+
+const divFilmes= document.querySelector("#FilmesDiv")
+
 imgPerfil.src=`${perfilLogado.imagemPerfil}`;
 
 const Filmes = [
@@ -104,8 +109,33 @@ function FiltrarFilmes () {
             
             
             
+
+
+            card.addEventListener("click", () => {
+                const DivFilmao = document.createElement("div");
+                DivFilmao.id="fog";
+                DivFilmao.innerHTML=`<section><img src='${filme.foto}'></section>
+                <section><button id='AssistirBtn'>Assistir</button> <h1>${filme.titulo}</h1><br><p>${filme.sinopse}</p> <p>Indicação de idade do filme: ${filme.indicacao}</p> <button id='FecharDiv'>Fechar</button></section>`;
+                document.body.appendChild(DivFilmao)
+                const AssistirBtn = document.querySelector("#AssistirBtn");
+                const FecharDiv = document.querySelector("#FecharDiv");
+                
+                AssistirBtn.addEventListener("click", () => {
+                    const AssistirDiv = document.createElement("div");
+                    AssistirDiv.innerHTML=`<video controls>
+                    <source src='${filme.video}' type='video/mp4'></source>
+                    </video>`
+                })
+                FecharDiv.addEventListener("click", () => {
+                    DivFilmao.remove()
+                })
+
+
+            })
             
         })
+    }else{
+        divFilmes.innerHTML=`<p>Não encontramos oque buscavas, logo logo estará no catálogo!</p>`;
     }
 }
 
