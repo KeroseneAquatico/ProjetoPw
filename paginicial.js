@@ -17,6 +17,17 @@ const romance= document.querySelector("#romance");
 const terror= document.querySelector("#terror");
 const thriller= document.querySelector("#thriller");
 
+const Surpresa = document.querySelector("#Surpresa");
+const PesquisaFilme = document.querySelector("#PesquisaFilme");
+const logout = document.querySelector("#logout");
+const perfilVoltar = document.querySelector("#perfilVoltar");
+const imgPerfil = document.querySelector("#imgPerfil");
+
+const perfilUsuario = localStorage.getItem('perfilLogado');
+const perfilLogado = JSON.parse(perfilUsuario);
+
+imgPerfil.src=`${perfilLogado.imagemPerfil}`;
+
 const Filmes = [
     {
         foto: "https://m.media-amazon.com/images/I/71pS7uZq0eL._AC_SY679_.jpg",
@@ -84,7 +95,28 @@ const Filmes = [
 ];
 
 function FiltrarFilmes () {
-    
-
-
+    const ExibirFilme = PesquisaFilme.value =='' || Filmes.titulo.toLowerCase().includes(PesquisaFilme.value.toLowerCase())
+    if(ExibirFilme){
+        Filmes.forEach((filme) => {
+            const genero = filme.genero.toLowerCase()
+            const card = document.createElement("div");
+            card.innerHTML=`<img src='${filme.foto}'>`
+            
+            
+            
+            
+        })
+    }
 }
+
+perfilVoltar.addEventListener("click", () => {
+    localStorage.removeItem('perfilLogado');
+    window.location.href="perfil.html";
+})
+logout.addEventListener("click" , () => {
+    localStorage.removeItem('userLogado');
+    localStorage.removeItem('perfilLogado');
+    window.location.href="login.html"
+});
+
+PesquisaFilme.addEventListener("input", () => {FiltrarFilmes()})
