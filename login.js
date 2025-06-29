@@ -2,6 +2,7 @@ const LoginEmail = document.querySelector("#LoginEmail");
 const LoginSenha = document.querySelector("#LoginSenha");
 //Para entrar
 
+const IrCadastro = document.querySelector("#IrCadastro");
 
 const EsqueciSenha = document.querySelector("#EsqueciSenha");
 //No esqueceu a senha tu vai colocar Email, mais alguma coisa.
@@ -34,4 +35,7 @@ ErroLogin_msg.innerHTML="!Preencha TODOS os campos, por favor!";
 LoginSenha.value="";
 LoginEmail.value="";
 
+})
+IrCadastro.addEventListener("click", () => {
+   window.location.href="cadastro.html" 
 })
