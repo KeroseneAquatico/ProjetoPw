@@ -15,7 +15,7 @@ const armazenamentoLocal = localStorage.getItem('Users');
 
 let users=[];
 if(armazenamentoLocal){
-    let users = JSON.parse(armazenamentoLocal);
+    users = JSON.parse(armazenamentoLocal);
 }
 
 CadastrarBtn.addEventListener("click", () => {
