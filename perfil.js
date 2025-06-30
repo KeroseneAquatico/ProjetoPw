@@ -17,6 +17,7 @@ function MostrarPerfil() {
       <img src='${profile.imagemPerfil}' id='Redirect'><br>
       <h1>${profile.nomePerfil}</h1>
       <button class='editPerfil'>Editar Perfil</button>
+       <button class='deletePerfil_btn'>Excluir Perfil</button>
     `;
 
     listaDiv.append(perfilDiv);
@@ -38,6 +39,42 @@ function MostrarPerfil() {
   }
 
   });
+
+//Botão de deletar
+  const deletePerfil = perfilDiv.querySelector(".deletePerfil");
+
+   deletePerfil.addEventListener("click", (e) => {
+    if(usuarioLogado.perfil.length ==1){
+      alert("❗Você não pode excluir seu único perfil❗");
+      
+    }else{
+       const confirmacao = confirm(`Tem certeza que deseja excluir o perfil "${profile.nomePerfil}"?`);
+  if (confirmacao) {
+    // Remover o perfil do array
+    const indexPerfil = userLogado.perfil.indexOf(profile);
+    if (indexPerfil > -1) {
+      userLogado.perfil.splice(indexPerfil, 1);
+
+      // Atualizar no localStorage
+      const todosUsuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      const indexUsuario = todosUsuarios.findIndex(u => u.email === userLogado.email);
+      if (indexUsuario !== -1) {
+        todosUsuarios[indexUsuario] = userLogado;
+        localStorage.setItem('usuarios', JSON.stringify(todosUsuarios));
+      }
+
+      localStorage.setItem('userLogado', JSON.stringify(userLogado));
+
+      // Reexibir a lista
+      MostrarPerfil();
+    }
+  }
+
+    }
+
+
+ 
+});
 }
 MostrarPerfil();
 

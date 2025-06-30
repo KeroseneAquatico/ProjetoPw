@@ -98,6 +98,8 @@ const Filmes = [
         indicacao: "12 anos",
     }
 ];
+const FilmesArray = JSON.stringify(Filmes);
+localStorage.setItem( 'FilmesArray' , FilmesArray );
 
 function FiltrarFilmes () {
     const ExibirFilme = PesquisaFilme.value =='' || Filmes.titulo.toLowerCase().includes(PesquisaFilme.value.toLowerCase())
@@ -121,10 +123,7 @@ function FiltrarFilmes () {
                 const FecharDiv = document.querySelector("#FecharDiv");
                 
                 AssistirBtn.addEventListener("click", () => {
-                    const AssistirDiv = document.createElement("div");
-                    AssistirDiv.innerHTML=`<video controls>
-                    <source src='${filme.video}' type='video/mp4'></source>
-                    </video>`
+                    
                 })
                 FecharDiv.addEventListener("click", () => {
                     DivFilmao.remove()

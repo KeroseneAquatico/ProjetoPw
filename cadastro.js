@@ -28,18 +28,15 @@ CadastrarBtn.addEventListener("click", () => {
     senhaCadastro2.value="";
     senhaCadastro.value ="";
  }else{
-    let PlanoSelecionado;
-    if (PlanoBasico==true){
-     PlanoSelecionado=PlanoBasico.value;
-
-    }else if(PlanoPadrao==true){
-
-     PlanoSelecionado=PlanoPadrao.value;
-
-    }else{
-     
-    PlanoSelecionado=PlanoPremium.value;
-    }
+   let PlanoSelecionado;
+if (PlanoBasico.checked) {
+    //checked puxa se é true ou false do PlanoBasico.
+    PlanoSelecionado = PlanoBasico.value;
+} else if (PlanoPadrao.checked) {
+    PlanoSelecionado = PlanoPadrao.value;
+} else if (PlanoPremium.checked) {
+    PlanoSelecionado = PlanoPremium.value;
+}
 
         //Planobasico.value==True.
         let user={
@@ -61,7 +58,7 @@ CadastrarBtn.addEventListener("click", () => {
      senhaCadastro2.value="";
 
     users.push(user);
-    localStorage.setItem('Users',users);
+    localStorage.setItem('Users', JSON.stringify(users));
     window.location.href="login.html";
     }    
 })
