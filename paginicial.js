@@ -11,6 +11,7 @@ const fantasia= document.querySelector("#fantasia");
 const ficcaoCientifica= document.querySelector("#ficcao-cientifica");
 const Guerra= document.querySelector("#Guerra");
 const policial= document.querySelector("#policial");
+const crime = document.querySelector('#crime');
 const misterio= document.querySelector("#misterio");
 const musical= document.querySelector("#musical");
 const romance= document.querySelector("#romance");
@@ -30,21 +31,22 @@ const acharUserLogado = localStorage.getItem('userLogado');
 const userLogado = JSON.parse(acharUserLogado);
 
 const divFilmes= document.querySelector("#FilmesDiv")
+const arrayTarde = [];
 
-imgPerfil.src=`${perfilLogado.imagemPerfil}`;
+//imgPerfil.src=`${perfilLogado.imagemPerfil}`;
 
 const Filmes = [
     {
-        foto: "https://m.media-amazon.com/images/I/71pS7uZq0eL._AC_SY679_.jpg",
+        foto: "https://img.elo7.com.br/product/zoom/26925F8/big-poster-filme-rei-leao-1994-lo04-tamanho-90x60-cm-rei-leao-disney.jpg",
         titulo: "O Rei Leão",
-        genero: " Aventura",
+        genero: "Aventura",
         ano: 1994,
         sinopse: "O Rei Leão é a história de Simba, um jovem leão que busca seguir os passos de seu pai, Mufasa, e assumir seu lugar como o novo rei da savana, enquanto enfrenta o tio malvado Scar.",
         video: "https://www.youtube.com/watch?v=4sj1pP1W2hI",
         indicacao: "Livre",
     },
     {
-        foto: "https://m.media-amazon.com/images/I/91KkNq2U61L._AC_SY679_.jpg",
+        foto: "https://br.web.img3.acsta.net/pictures/19/04/26/17/30/2428965.jpg",
         titulo: "Vingadores: Ultimato",
         genero: "Ação",
         ano: 2019,
@@ -53,7 +55,7 @@ const Filmes = [
         indicacao: "12 anos",
     },
     {
-        foto: "https://m.media-amazon.com/images/I/61DLF2yDZ5L._AC_SY679_.jpg",
+        foto: "https://upload.wikimedia.org/wikipedia/pt/8/84/AOrigemPoster.jpg",
         titulo: "A Origem",
         genero: "Ficção Científica",
         ano: 2010,
@@ -62,7 +64,7 @@ const Filmes = [
         indicacao: "14 anos",
     },
     {
-        foto: "https://m.media-amazon.com/images/I/91noYdtPAXL._AC_SY679_.jpg",
+        foto: "https://upload.wikimedia.org/wikipedia/pt/e/e7/Jurassic_Park_poster.jpg",
         titulo: "Jurassic Park",
         genero: "Aventura",
         ano: 1993,
@@ -71,7 +73,7 @@ const Filmes = [
         indicacao: "10 anos",
     },
     {
-        foto: "https://m.media-amazon.com/images/I/81X9D3zZtYL._AC_SY679_.jpg",
+        foto: "https://m.media-amazon.com/images/I/71nJYTNc-sL._UF1000,1000_QL80_.jpg",
         titulo: "O Poderoso Chefão",
         genero: "Crime",
         ano: 1972,
@@ -80,7 +82,7 @@ const Filmes = [
         indicacao: "16 anos",
     },
     {
-        foto: "https://m.media-amazon.com/images/I/91wyb7i4ZsL._AC_SY679_.jpg",
+        foto: "https://upload.wikimedia.org/wikipedia/pt/c/c0/ForrestGumpPoster.jpg",
         titulo: "Forrest Gump",
         genero: "Drama",
         ano: 1994,
@@ -89,7 +91,7 @@ const Filmes = [
         indicacao: "10 anos",
     },
     {
-        foto: "https://m.media-amazon.com/images/I/91hJdgdTVML._AC_SY679_.jpg",
+        foto: "https://br.web.img3.acsta.net/medias/nmedia/18/92/91/32/20224832.jpg",
         titulo: "O Senhor dos Anéis: A Sociedade do Anel",
         genero: "Aventura",
         ano: 2001,
@@ -101,51 +103,77 @@ const Filmes = [
 const FilmesArray = JSON.stringify(Filmes);
 localStorage.setItem( 'FilmesArray' , FilmesArray );
 
-function FiltrarFilmes () {
-    const ExibirFilme = PesquisaFilme.value =='' || Filmes.titulo.toLowerCase().includes(PesquisaFilme.value.toLowerCase())
-    if(ExibirFilme){
-        Filmes.forEach((filme) => {
-            const genero = filme.genero.toLowerCase()
-            const card = document.createElement("div");
-            card.innerHTML=`<img src='${filme.foto}'>`
-            
-            
-            
+function exibirFilmes(){
+    Filmes.forEach((filme =>{
+        if(filme.genero=='Aventura'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            //tá, essa linha 111 é uma putaria
+            //resumidamente, eu descobri q só funcionaria se eu fizesse uma arrow function que chama a função janelaFilme
+            //pq por sem a arrow o código já roda o eventlistener imediatamente, e n espera eu clicar nela
+            //é bizarro, n entendi direito mas é isso aí
+            aventura.appendChild(card);
+        }else if(filme.genero=='Ação'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            acao.appendChild(card)
+        }else if(filme.genero=='Crime'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card')
+            card.innerHTML=`<img src='${filme.foto}'</img>`  
+            card.addEventListener('click', () => janelaFilme(filme) )
+            crime.appendChild(card)          
+        }else if(filme.genero=='Ficção Científica'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card')
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            ficcaoCientifica.appendChild(card)            
+        }else if(filme.genero=='Drama'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card')
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            drama.appendChild(card)            
+        }
+    
+}))
 
+function janelaFilme(filme){
+    const infoWindow = document.createElement('div');
+    infoWindow.classList.add('infoWindow'); 
 
-            card.addEventListener("click", () => {
-                const DivFilmao = document.createElement("div");
-                DivFilmao.id="fog";
-                DivFilmao.innerHTML=`<section><img src='${filme.foto}'></section>
-                <section><button id='AssistirBtn'>Assistir</button> <h1>${filme.titulo}</h1><br><p>${filme.sinopse}</p> <p>Indicação de idade do filme: ${filme.indicacao}</p> <button id='FecharDiv'>Fechar</button></section>`;
-                document.body.appendChild(DivFilmao)
-                const AssistirBtn = document.querySelector("#AssistirBtn");
-                const FecharDiv = document.querySelector("#FecharDiv");
-                
-                AssistirBtn.addEventListener("click", () => {
-                    
-                })
-                FecharDiv.addEventListener("click", () => {
-                    DivFilmao.remove()
-                })
-
-
-            })
-            
-        })
-    }else{
-        divFilmes.innerHTML=`<p>Não encontramos oque buscavas, logo logo estará no catálogo!</p>`;
-    }
+    infoWindow.innerHTML = `
+        <div class="info-modal">
+            <h1>${filme.titulo}</h1>
+            <p>Gênero: ${filme.genero}</p>
+            <p>Ano: ${filme.ano}</p>
+            <p>Classificação: ${filme.indicacao}</p>
+            <p>${filme.sinopse}</p>
+            <button id='assistirFilme'>Assistir</button>
+            <button id='fecharJanela'>Fechar</button>
+            <button id='assistirMaisTarde'>Assistir Mais Tarde</button>
+        </div>
+    `;
+    document.body.appendChild(infoWindow);
+    const botaoAssistir = document.querySelector('#assistirFilme');
+    botaoAssistir.addEventListener('click', () =>{
+        window.location.href="filme.html";
+    })
+    const botaoFechar = document.querySelector('#fecharJanela');
+    botaoFechar.addEventListener('click', () =>{
+        infoWindow.remove();
+    })                 
+    const botaoMaisTarde = document.querySelector('#assistirMaisTarde')
+    botaoMaisTarde.addEventListener('click', () =>{
+        arrayTarde.push(filme)
+        console.log(arrayTarde)
+    })
 }
-
-perfilVoltar.addEventListener("click", () => {
-    localStorage.removeItem('perfilLogado');
-    window.location.href="perfil.html";
-})
-logout.addEventListener("click" , () => {
-    localStorage.removeItem('userLogado');
-    localStorage.removeItem('perfilLogado');
-    window.location.href="login.html"
-});
-
-PesquisaFilme.addEventListener("input", () => {FiltrarFilmes()})
+}
+//n consegui impedir esta porra de criar varios modais, acho q da pra fazer isso com css.
+exibirFilmes();
