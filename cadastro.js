@@ -22,9 +22,9 @@ CadastrarBtn.addEventListener("click", () => {
   if( EmailCadastro.value=="" || senhaCadastro.value=="" || senhaCadastro2.value=="" || nomeCadastro.value=="" ){
  CadastroErro_msg.innerHTML="Preencha TODOS os campos!";   
     
-}else if(senhaCadastro2.value!=senhaCadastro.value){
+}else if(senhaCadastro2.value!=senhaCadastro.value || senhaCadastro.value.length<8){
 
-    CadastroErro_msg.innerHTML="As senhas não conferem, por favor as insira novamente a senha";
+    CadastroErro_msg.innerHTML="As senhas não conferem ou não tem 8 caractéres, por favor as insira novamente a senha";
     senhaCadastro2.value="";
     senhaCadastro.value ="";
  }else{
