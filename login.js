@@ -27,9 +27,9 @@ ErroLogin_msg.innerHTML="!Preencha TODOS os campos, por favor!";
         if(usuario.email == LoginEmail.value && usuario.senha == LoginSenha.value){
             const userLogado= JSON.stringify(usuario);
             localStorage.setItem('userLogado',userLogado);
+            window.location.href="perfil.html";
         }
     });
-    window.location.href="perfil.html";
     ErroLogin_msg.innerHTML="Entrando... ✅";
 }
 LoginSenha.value="";
