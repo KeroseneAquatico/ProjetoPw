@@ -38,6 +38,11 @@ function MostrarPerfil() {
   }
 
   });
+  if(userLogado.planoUser == "basico" && userLogado.perfil.length<3 ||userLogado.planoUser == "padrao" && userLogado.perfil.length<4 ||userLogado.planoUser == "premium" && userLogado.perfil.length<5){
+    const botaoCriar= document.createElement("button")
+    perfilDiv.append(botaoCriar)
+    botaoCriar.addEventListener("click",() =>{CriarPerfil()})
+  }
 }
 MostrarPerfil();
 

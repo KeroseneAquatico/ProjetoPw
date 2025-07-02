@@ -24,6 +24,9 @@ const logout = document.querySelector("#logout");
 const perfilVoltar = document.querySelector("#perfilVoltar");
 const imgPerfil = document.querySelector("#imgPerfil");
 
+const usuariosRegistro = localStorage.getItem('Users');
+const usuarios = JSON.parse(usuariosRegistro);
+
 const perfilUsuario = localStorage.getItem('perfilLogado');
 const perfilLogado = JSON.parse(perfilUsuario);
 
@@ -31,7 +34,13 @@ const acharUserLogado = localStorage.getItem('userLogado');
 const userLogado = JSON.parse(acharUserLogado);
 
 const divFilmes= document.querySelector("#FilmesDiv")
-const arrayTarde = [];
+
+const armazenamentoArrayTarde = perfilLogado.AssistirMaisTarde
+let arrayTarde = [];
+
+if(armazenamentoArrayTarde){
+    arrayTarde=armazenamentoArrayTarde
+}
 
 //imgPerfil.src=`${perfilLogado.imagemPerfil}`;
 
@@ -170,10 +179,48 @@ function janelaFilme(filme){
     })                 
     const botaoMaisTarde = document.querySelector('#assistirMaisTarde')
     botaoMaisTarde.addEventListener('click', () =>{
+        botaoMaisTarde.addEventListener('click', () =>{
+        const index = arrayTarde.findIndex(e => e.titulo === filme.titulo);        
+        const card = document.createElement('div')            
+        card.classList.add('movie-card')
+        card.innerHTML=`<img src='${filme.foto}'</img>`  
+        card.addEventListener('click', () => janelaFilme(filme) )
+        AssistirMaisTarde.appendChild(card)
+
+        if(index === -1){
+
+
         arrayTarde.push(filme)
-        console.log(arrayTarde)
+        }else{
+        const card = document.createElement('div')        
+        arrayTarde.splice(index, 1);
+        AssistirMaisTarde.appendChild(card)
+        atualizarMaisTarde();
+        }
     })
+    function atualizarMaisTarde(){        
+       
+        AssistirMaisTarde.innerHTML = ""; 
+        arrayTarde.forEach((filme => {
+            const card = document.createElement('div')
+            card.classList.add('movie-card')
+            card.innerHTML = `<img src="${filme.foto}" />`
+            card.addEventListener('click', () => janelaFilme(filme));
+            AssistirMaisTarde.appendChild(card)
+        }))
+    }       
+}   
+    )
 }
 }
+
+Surpresa.addEventListener("click", () => {
+    const filmeAleatorio = Math.round(Math.random()*Filmes.length)
+
+    const FilmeAssistir=Filmes[filmeAleatorio]
+    localStorage.setItem('FilmeAssistir', FilmeAssistir)
+
+})
+
 //n consegui impedir esta porra de criar varios modais, acho q da pra fazer isso com css.
 exibirFilmes();
