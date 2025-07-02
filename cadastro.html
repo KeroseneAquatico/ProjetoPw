@@ -10,7 +10,9 @@
 </head>
 
 <body>
+   
     <div id="CadastroDiv">
+        <h1>Nome Bonitinho </h1>
         <h2>Nome</h2>
         <input type="text" id="nomeCadastro">
         <h2>Email:</h2>
@@ -22,25 +24,23 @@
         <div class="section">
             <h2>Selecione seu Plano de Assinatura</h2>
             
+            <div class="plan-container">
             <div class="plan-option">
                 <input type="radio" id="planoBasico" name="planoAssinatura" value="basico" checked>
-                <label for="planoBasico">Plano Básico - R$ 19,90/mês</label>
-                <p></p>
+                <label for="planoBasico">Plano Básico - R$ 19,90/mês</label>                
             </div>
             
         <div class="plan-option">
             <input type="radio" id="planoPadrao" name="planoAssinatura" value="padrao">
             <label for="planoPadrao">Plano Padrão - R$ 29,90/mês</label>
-            <p></p>
         </div>
         
         <div class="plan-option">
             <input type="radio" id="planoPremium" name="planoAssinatura" value="premium">
             <label for="planoPremium">Plano Premium - R$ 39,90/mês</label>
-            <p></p>
         </div>
     </div>
-
+</div>
     <button id="CadastrarBtn">Cadastrar-se!</button>
     <p id="CadastroErro_msg" ></p>
     <p>Já tem uma conta faça seu: <a href="login.html">Login</a></p>
