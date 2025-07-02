@@ -11,7 +11,7 @@ const PlanoPremium=document.querySelector("#planoPremium");
 const CadastrarBtn=document.querySelector("#CadastrarBtn");
 const CadastroErro_msg=document.querySelector("#CadastroErro_msg");
 
-const armazenamentoLocal = localStorage.getItem('Users');
+const armazenamentoLocal = localStorage.getItem('usuarios');
 
 let users=[];
 if(armazenamentoLocal){
@@ -38,6 +38,12 @@ if (PlanoBasico.checked) {
     PlanoSelecionado = PlanoPremium.value;
 }
 
+users.forEach(user => {
+
+
+
+
+})
         //Planobasico.value==True.
         let user={
             perfil:[{
@@ -58,7 +64,7 @@ if (PlanoBasico.checked) {
      senhaCadastro2.value="";
 
     users.push(user);
-    localStorage.setItem('Users', JSON.stringify(users));
+    localStorage.setItem('usuarios', JSON.stringify(users));
     window.location.href="login.html";
     }    
 })

@@ -1,11 +1,11 @@
 const Voltar = document.querySelector("#Voltar");
-const filmeAssistido = document.querySelector("#filmeAssistido");
+const filmeAssistindo = document.querySelector("#filmeAssistindo");
 
 const FilmeAssistir = localStorage.getItem('FilmeAssistir')
 const Assistindo = JSON.parse(FilmeAssistir);
 
 
-filmeAssistido.src=`${Assistindo.video}`
+filmeAssistindo.src=`${Assistindo.video}`
 
 
 Voltar.addEventListener("click", () => {

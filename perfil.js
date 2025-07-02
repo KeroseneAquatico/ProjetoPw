@@ -1,5 +1,10 @@
 const listaDiv = document.querySelector("#perfilDiv");
 let ClicadoEditar_btn=false;
+const logout= document.querySelector("#logout");
+
+
+const todosUsuarios=JSON.parse(localStorage.getItem('Users'))
+
 const acharUserLogado = localStorage.getItem('userLogado');
 const userLogado = JSON.parse(acharUserLogado);
 
@@ -7,6 +12,12 @@ const FotosPerfil = [
   "assets/img1.jpg", "assets/img2.jpg", "assets/img3.jpg", "assets/img4.jpg", "assets/img5.jpg",
   "assets/img6.jpg", "assets/img7.jpg", "assets/img8.jpg", "assets/img9.jpg", "assets/img10.jpg"
 ];
+
+logout.addEventListener("click", ()=>{
+    localStorage.removeItem('userLogado');
+    window.location.href='login.html'
+}) 
+
 
 function MostrarPerfil() {
   listaDiv.innerHTML = "";
@@ -41,6 +52,7 @@ function MostrarPerfil() {
   if(userLogado.planoUser == "basico" && userLogado.perfil.length<3 ||userLogado.planoUser == "padrao" && userLogado.perfil.length<4 ||userLogado.planoUser == "premium" && userLogado.perfil.length<5){
     const botaoCriar= document.createElement("button")
     perfilDiv.append(botaoCriar)
+    botaoCriar.innerHTML=`Criar Perfil`
     botaoCriar.addEventListener("click",() =>{CriarPerfil()})
   }
 }
@@ -109,18 +121,21 @@ function CriarPerfil() {
         }else{
           const perfilCriado = {
             nomePerfil: NomePerfil.value,
-            imagemPerfil: selecionada.src
+            imagemPerfil: selecionada.src,
+            AssistirMaisTarde:[],
+            AssistidoRecente: [],
           };
           userLogado.perfil.push(perfilCriado);
+          localStorage.setItem('userLogado', userLogado);
         }
 
       // userLogado.perfil.push(perfilCriado);
 
-      const todosUsuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+      
       const index = todosUsuarios.findIndex(u => u.email === userLogado.email);
 
       if (index !== -1) {
-        todosUsuarios[index] = userLogado;
+        todosUsuarios[i].perfil=userLogado.perfil;
         localStorage.setItem('usuarios', JSON.stringify(todosUsuarios));
       }
 

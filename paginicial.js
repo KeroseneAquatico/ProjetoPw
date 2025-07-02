@@ -11,7 +11,6 @@ const fantasia= document.querySelector("#fantasia");
 const ficcaoCientifica= document.querySelector("#ficcao-cientifica");
 const Guerra= document.querySelector("#Guerra");
 const policial= document.querySelector("#policial");
-const crime = document.querySelector('#crime');
 const misterio= document.querySelector("#misterio");
 const musical= document.querySelector("#musical");
 const romance= document.querySelector("#romance");
@@ -42,7 +41,7 @@ if(armazenamentoArrayTarde){
     arrayTarde=armazenamentoArrayTarde
 }
 
-//imgPerfil.src=`${perfilLogado.imagemPerfil}`;
+imgPerfil.src=`${perfilLogado.imagemPerfil}`;
 
 const Filmes = [
     {
@@ -130,12 +129,6 @@ function exibirFilmes(){
             card.innerHTML=`<img src='${filme.foto}'</img>`
             card.addEventListener('click', () => janelaFilme(filme) )
             acao.appendChild(card)
-        }else if(filme.genero=='Crime'){
-            const card = document.createElement('div')
-            card.classList.add('movie-card')
-            card.innerHTML=`<img src='${filme.foto}'</img>`  
-            card.addEventListener('click', () => janelaFilme(filme) )
-            crime.appendChild(card)          
         }else if(filme.genero=='Ficção Científica'){
             const card = document.createElement('div')
             card.classList.add('movie-card')
@@ -171,8 +164,11 @@ function janelaFilme(filme){
     document.body.appendChild(infoWindow);
     const botaoAssistir = document.querySelector('#assistirFilme');
     botaoAssistir.addEventListener('click', () =>{
+        localStorage.setItem('FilmeAssistir', JSON.stringify(filme));
+        perfilLogado.assistidoRecente.push(filme);
+        localStorage.setItem('perfilLogado', perfilLogado);
         window.location.href="filme.html";
-    })
+    });
     const botaoFechar = document.querySelector('#fecharJanela');
     botaoFechar.addEventListener('click', () =>{
         infoWindow.remove();
@@ -188,9 +184,8 @@ function janelaFilme(filme){
         AssistirMaisTarde.appendChild(card)
 
         if(index === -1){
+        arrayTarde.push(filme);
 
-
-        arrayTarde.push(filme)
         }else{
         const card = document.createElement('div')        
         arrayTarde.splice(index, 1);
@@ -221,6 +216,9 @@ Surpresa.addEventListener("click", () => {
     localStorage.setItem('FilmeAssistir', FilmeAssistir)
 
 })
-
+perfilVoltar.addEventListener("click", () =>{
+    localStorage.removeItem('perfilLogado');
+    window.location.href='perfil.html'
+})
 //n consegui impedir esta porra de criar varios modais, acho q da pra fazer isso com css.
 exibirFilmes();
