@@ -34,11 +34,17 @@ const userLogado = JSON.parse(acharUserLogado);
 
 const divFilmes= document.querySelector("#FilmesDiv")
 
+const armazenamentoArrayAssistido = perfilLogado.AssistidoRecente
+let arrayAssistido=[]
+if(armazenamentoArrayAssistido){
+    arrayAssistido=armazenamentoArrayAssistido
+}
+
 const armazenamentoArrayTarde = perfilLogado.AssistirMaisTarde
 let arrayTarde = [];
 
 if(armazenamentoArrayTarde){
-    arrayTarde=armazenamentoArrayTarde
+    arrayTarde=armazenamentoArrayTarde;
 }
 
 imgPerfil.src=`${perfilLogado.imagemPerfil}`;
@@ -112,6 +118,7 @@ const FilmesArray = JSON.stringify(Filmes);
 localStorage.setItem( 'FilmesArray' , FilmesArray );
 
 function exibirFilmes(){
+    atualizarMaisTarde()
     Filmes.forEach((filme =>{
         if(filme.genero=='Aventura'){
             const card = document.createElement('div')
@@ -129,6 +136,12 @@ function exibirFilmes(){
             card.innerHTML=`<img src='${filme.foto}'</img>`
             card.addEventListener('click', () => janelaFilme(filme) )
             acao.appendChild(card)
+        }else if(filme.genero=='Crime'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card')
+            card.innerHTML=`<img src='${filme.foto}'</img>`  
+            card.addEventListener('click', () => janelaFilme(filme) )
+            crime.appendChild(card)          
         }else if(filme.genero=='Ficção Científica'){
             const card = document.createElement('div')
             card.classList.add('movie-card')
@@ -142,13 +155,13 @@ function exibirFilmes(){
             card.addEventListener('click', () => janelaFilme(filme) )
             drama.appendChild(card)            
         }
+
     
 }))
 
 function janelaFilme(filme){
     const infoWindow = document.createElement('div');
-    infoWindow.classList.add('infoWindow'); 
-
+    infoWindow.classList.add('infoWindow');
     infoWindow.innerHTML = `
         <div class="info-modal">
             <h1>${filme.titulo}</h1>
@@ -163,32 +176,73 @@ function janelaFilme(filme){
     `;
     document.body.appendChild(infoWindow);
     const botaoAssistir = document.querySelector('#assistirFilme');
-    botaoAssistir.addEventListener('click', () =>{
-        localStorage.setItem('FilmeAssistir', JSON.stringify(filme));
-        perfilLogado.assistidoRecente.push(filme);
-        localStorage.setItem('perfilLogado', perfilLogado);
-        window.location.href="filme.html";
-    });
+    botaoAssistir.addEventListener('click', () =>{        
+    localStorage.setItem('FilmeAssistir',stringify(FilmeAssistir));
+        
+        arrayAssistido.push(filme);
+        perfilLogado.AssistidoRecente=arrayAssistido;
+        localStorage.setItem('perfilLogado',JSON.stringify(perfilLogado));
+        const indexPerfil =userLogado.findIndex(p => p.nomePerfil === perfilLogado.nomePerfil);
+
+        userLogado.perfil[indexPerfil].AssistidoRecente = perfilLogado.AssistidoRecente;
+        localStorage.setItem('userLogado',JSON.stringify(userLogado));
+        usuarios.forEach(user => {    
+            if(user.email === userLogado.email){
+                usuarios.indexOf(user).perfil[indexPerfil].AssistidoRecente= perfilLogado.AssistidoRecente;
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            }
+        })
+    // é a vida irmao
+    // segue teu rumo
+    // a vida é uma caipirinha de morango com abacaxi, é doce  e facil mas  azedo e dificil ao mesmo tempo
+    // continua e permanece 
+    // hello bro
+    
+
+     window.location.href="filme.html";
+    })
     const botaoFechar = document.querySelector('#fecharJanela');
     botaoFechar.addEventListener('click', () =>{
         infoWindow.remove();
     })                 
     const botaoMaisTarde = document.querySelector('#assistirMaisTarde')
     botaoMaisTarde.addEventListener('click', () =>{
-        botaoMaisTarde.addEventListener('click', () =>{
         const index = arrayTarde.findIndex(e => e.titulo === filme.titulo);        
         const card = document.createElement('div')            
         card.classList.add('movie-card')
         card.innerHTML=`<img src='${filme.foto}'</img>`  
         card.addEventListener('click', () => janelaFilme(filme) )
         AssistirMaisTarde.appendChild(card)
-
         if(index === -1){
-        arrayTarde.push(filme);
-
+            arrayTarde.push(filme)
+            perfilLogado.AssistirMaisTarde=arrayTarde
+            localStorage.setItem('perfilLogado',JSON.stringify(perfilLogado));
+            const indexPerfil =userLogado.findIndex(p => p.nomePerfil === perfilLogado.nomePerfil);
+            userLogado.perfil[indexPerfil].AssistirMaisTarde = perfilLogado.AssistirMaisTarde;
+            localStorage.setItem('userLogado',JSON.stringify(userLogado));
+            usuarios.forEach(user => {    
+            if(user.email === userLogado.email){
+                usuarios.indexOf(user).perfil[indexPerfil].AssistirMaisTarde= perfilLogado.AssistirMaisTarde;
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            }
+        });
         }else{
         const card = document.createElement('div')        
         arrayTarde.splice(index, 1);
+        perfilLogado.AssistirMaisTarde=arrayTarde;
+        localStorage.setItem('perfilLogado',JSON.stringify(perfilLogado));
+        const indexPerfil =userLogado.findIndex(p => p.nomePerfil === perfilLogado.nomePerfil);
+        userLogado.perfil[indexPerfil].AssistirMaisTarde = perfilLogado.AssistirMaisTarde;
+        localStorage.setItem('userLogado',JSON.stringify(userLogado));
+        usuarios.forEach(user => {    
+            
+          
+          const indexUserLogado= usuarios
+            if(user.email === userLogado.email){
+                usuarios.indexOf(user).perfil.AssistirMaisTarde= perfilLogado.AssistirMaisTarde;
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            }
+        });
         AssistirMaisTarde.appendChild(card)
         atualizarMaisTarde();
         }
@@ -204,21 +258,36 @@ function janelaFilme(filme){
             AssistirMaisTarde.appendChild(card)
         }))
     }       
-}   
-    )
 }
 }
 
 Surpresa.addEventListener("click", () => {
-    const filmeAleatorio = Math.round(Math.random()*Filmes.length)
+    const filmeAleatorio = Math.round(Math.random()*Filmes.length);
+    const FilmeAssistir=Filmes[filmeAleatorio];
+    localStorage.setItem('FilmeAssistir',stringify(FilmeAssistir));
+   arrayAssistido.push(filme);
+        perfilLogado.AssistidoRecente=arrayAssistido;
+        localStorage.setItem('perfilLogado',JSON.stringify(perfilLogado));
+        const indexPerfil =userLogado.findIndex(p => p.nomePerfil === perfilLogado.nomePerfil);
 
-    const FilmeAssistir=Filmes[filmeAleatorio]
-    localStorage.setItem('FilmeAssistir', FilmeAssistir)
-
+        userLogado.perfil[indexPerfil].AssistidoRecente = perfilLogado.AssistidoRecente;
+        localStorage.setItem('userLogado',JSON.stringify(userLogado));
+        usuarios.forEach(user => {    
+            if(user.email === userLogado.email){
+                usuarios.indexOf(user).perfil[indexPerfil].AssistidoRecente= perfilLogado.AssistidoRecente;
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            }
+        })
+    window.location.href="filme.html";
 })
 perfilVoltar.addEventListener("click", () =>{
     localStorage.removeItem('perfilLogado');
-    window.location.href='perfil.html'
+    window.location.href='perfil.html';
 })
+PesquisaFilme.addEventListener("input", () => {
+
+})
+
+
 //n consegui impedir esta porra de criar varios modais, acho q da pra fazer isso com css.
 exibirFilmes();

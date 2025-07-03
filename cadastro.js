@@ -39,12 +39,11 @@ if (PlanoBasico.checked) {
 }
 
 users.forEach(user => {
-
+cuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 
 
 
 })
-        //Planobasico.value==True.
         let user={
             perfil:[{
                 nomePerfil: nomeCadastro.value,

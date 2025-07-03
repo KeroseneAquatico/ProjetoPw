@@ -3,7 +3,7 @@ let ClicadoEditar_btn=false;
 const logout= document.querySelector("#logout");
 
 
-const todosUsuarios=JSON.parse(localStorage.getItem('Users'))
+const todosUsuarios=JSON.parse(localStorage.getItem('usuarios'));
 
 const acharUserLogado = localStorage.getItem('userLogado');
 const userLogado = JSON.parse(acharUserLogado);
@@ -135,7 +135,7 @@ function CriarPerfil() {
       const index = todosUsuarios.findIndex(u => u.email === userLogado.email);
 
       if (index !== -1) {
-        todosUsuarios[i].perfil=userLogado.perfil;
+        todosUsuarios[index].perfil=userLogado.perfil;
         localStorage.setItem('usuarios', JSON.stringify(todosUsuarios));
       }
 
