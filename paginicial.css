@@ -1,0 +1,144 @@
+body {
+    background-color: #141414;
+    color: #ffffff;
+    min-height: 100%;
+}
+.assistir-header {
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 15px;
+    background-color: rgba(114, 15, 160, 0.7);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-right: 15px;
+
+}
+
+.assistir-header:hover {
+    background-color: rgba(109, 109, 110, 0.4);
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: linear-gradient(180deg, rgba(15, 1, 48, 0.7) 0%, transparent 100%);
+    width: 100%;
+    
+}
+header section {
+    display: flex;
+    align-items: center;
+}
+
+#Surpresa {
+    background-color: #2493d7;
+    color: #ffffff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+
+}
+
+#Surpresa:hover {
+    background-color: #0873b6;
+}
+
+#PesquisaFilme {
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,0.7);
+    border: 1px solid #333333;
+    border-radius: 4px;
+    color: #ffffff;
+    width: 300px;
+    font-size: 14px;
+}
+
+#PesquisaFilme::placeholder {
+    color: #8c8c8c;
+}
+
+#perfilVoltar, #logout {
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 15px;
+}
+
+#logout {
+    background-color: rgba(109, 109, 110, 0.7);
+    border-radius: 4px;
+
+}
+
+#logout:hover {
+    background-color: rgba(109, 109, 110, 0.4);
+}
+
+main {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+#FilmesDiv {
+    padding: 0px 40px;
+}
+
+#FilmesDiv h1 {
+    font-size: 22px;
+    margin: 25px 0px 15px 0px;
+    color: #e5e5e5;
+    max-width: 100%;
+}
+
+/* Containers de filmes */
+#AssistidoRecente,
+#AssistirMaisTarde,
+#acao,
+#aventura,
+#comedia,
+#comedia-romantica,
+#danca,
+#drama,
+#faroeste,
+#fantasia,
+#ficcao-cientifica,
+#Guerra,
+#policial,
+#crime,
+#misterio,
+#musical,
+#romance,
+#terror,
+#thriller {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 1px;
+    background: linear-gradient(90deg, #5dd9ff75, #ec11f054);
+    width: 100%;
+}
+
+.filme-item {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 125px;
+    background-color: #333333;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+
+.filme-item img {
+    width: 100%;
+    height: 100%;
+}
+

@@ -28,6 +28,12 @@ CadastrarBtn.addEventListener("click", () => {
     senhaCadastro2.value="";
     senhaCadastro.value ="";
  }else{
+const emailExistente = users.some(user => user.email === EmailCadastro.value)
+if(emailExistente){
+    CadastroErro_msg.innerHTML = "Este e-mail já está cadastrado. Use outro e-mail ou faça login.";
+    return;
+}
+
    let PlanoSelecionado;
 if (PlanoBasico.checked) {
     //checked puxa se é true ou false do PlanoBasico.
@@ -38,12 +44,10 @@ if (PlanoBasico.checked) {
     PlanoSelecionado = PlanoPremium.value;
 }
 
-users.forEach(user => {
-cuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 
 
 
-})
+
         let user={
             perfil:[{
                 nomePerfil: nomeCadastro.value,
