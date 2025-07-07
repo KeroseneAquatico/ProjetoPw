@@ -35,7 +35,7 @@ function MostrarPerfil() {
     Redirect.addEventListener("click", () => {
       const perfilLogado = JSON.stringify(profile);
       
-      localStorage.setItem('perfilLogado', perfilLogado);
+      localStorage.setItem('perfilLogado', perfilLogado);    
       window.location.href = "paginicial.html";
     });
 
@@ -59,23 +59,24 @@ function MostrarPerfil() {
 MostrarPerfil();
 
 function CriarPerfil() {
+  
   listaDiv.innerHTML = "";
-
+  
   const divCriaPerfil = document.createElement("div");
   divCriaPerfil.classList.add("criar-perfil");
-
+  
   divCriaPerfil.innerHTML = `
-    <h2>Criar Novo Perfil</h2>
-    <label for="nomePerfil">Nome do Perfil:</label>
-    <input type="text" id="nomePerfil" placeholder="Digite um nome">
-    <div id="fotosPerfil" class="galeria-fotos"></div>
-    <p id="mensagemPerfil"></p>
-    <button id="btnCriar">Criar Perfil</button>
-    <button id="btnCancelar">Cancelar</button>
+  <h2>Criar Novo Perfil</h2>
+  <label for="nomePerfil">Nome do Perfil:</label>
+  <input type="text" id="nomePerfil" placeholder="Digite um nome">
+  <div id="fotosPerfil" class="galeria-fotos"></div>
+  <p id="mensagemPerfil"></p>
+  <button id="btnCriar">Criar Perfil</button>
+  <button id="btnCancelar">Cancelar</button>
   `;
-
+  
   listaDiv.append(divCriaPerfil);
-
+  
   const Galeria = document.querySelector("#fotosPerfil");
   const NomePerfil = divCriaPerfil.querySelector("#nomePerfil");
   const MensagemPerfil = divCriaPerfil.querySelector("#mensagemPerfil");
@@ -87,7 +88,7 @@ function CriarPerfil() {
       const divFoto = document.createElement("div");
       divFoto.innerHTML = `<img src='${foto}' id='${i}' class='foto'>`;
       Galeria.append(divFoto);
-
+      
       const img = divFoto.querySelector("img");
       img.addEventListener("click", () => {
         Galeria.querySelectorAll('.foto').forEach(f => f.classList.remove('selecionado'));
@@ -95,9 +96,9 @@ function CriarPerfil() {
       });
     });
   }
-
+  
   ListaFotos();
-
+  
   //Consigo chamar na hora de editar pefil!
   PerfilCriar_btn.addEventListener("click", CriarPerfil);
   btnCancelar.addEventListener("click", () => {
@@ -106,24 +107,29 @@ function CriarPerfil() {
   })
   function CriarPerfil (){
     
- 
+    
     const selecionada = Galeria.querySelector(".foto.selecionado");
-
+    
     if (NomePerfil.value === "") {
       MensagemPerfil.innerHTML = "Insira o seu nome, por favor!";
     } else if (!selecionada) {
       MensagemPerfil.textContent = "Escolha uma foto para conseguirmos criar seu perfil!";
     } 
     else {// Para ver se é um ediçao de perfil ou a primeira criação
-        if( ClicadoEditar_btn==true){
-          perfilSendoEditado.nomePerfil = NomePerfil.value;
-          perfilSendoEditado.imagemPerfil = selecionada.src;
-        }else{
+      if( ClicadoEditar_btn==true){
+        perfilSendoEditado.nomePerfil = NomePerfil.value;
+        perfilSendoEditado.imagemPerfil = selecionada.src;
+        
+      } else if(nomePerfilJaExistente(userLogado,NomePerfil.value)){
+        alert(`Já existe um perfil com o nome ${NomePerfil.value}! Por favor escolha outro`)
+        NomePerfil.value=''
+          return;
+      }else {
           const perfilCriado = {
             nomePerfil: NomePerfil.value,
             imagemPerfil: selecionada.src,
-            AssistirMaisTarde:[],
-            AssistidoRecente: [],
+            assistirMaisTarde:[],
+            assistidoRecente: [],
           };
           userLogado.perfil.push(perfilCriado);
           localStorage.setItem('userLogado', userLogado);
@@ -145,4 +151,7 @@ function CriarPerfil() {
       MostrarPerfil();
     }
  }
+}
+function nomePerfilJaExistente(userLogado, nome) {
+    return userLogado.perfil.some(p => p.nomePerfil === nome);
 }

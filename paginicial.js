@@ -34,11 +34,11 @@ const userLogado = JSON.parse(acharUserLogado);
 
 const divFilmes= document.querySelector("#FilmesDiv")
 
-const armazenamentoArrayTarde = perfilLogado.AssistirMaisTarde
+const armazenamentoArrayTarde = perfilLogado.assistirMaisTarde
 let arrayTarde = [];
 
 if(armazenamentoArrayTarde){
-    arrayTarde=armazenamentoArrayTarde
+    arrayTarde=armazenamentoArrayTarde;
 }
 
 imgPerfil.src=`${perfilLogado.imagemPerfil}`;
@@ -50,7 +50,7 @@ const Filmes = [
         genero: "Aventura",
         ano: 1994,
         sinopse: "O Rei Leão é a história de Simba, um jovem leão que busca seguir os passos de seu pai, Mufasa, e assumir seu lugar como o novo rei da savana, enquanto enfrenta o tio malvado Scar.",
-        video: "https://www.youtube.com/watch?v=4sj1pP1W2hI",
+        video: "https://www.youtube.com/embed/rHiHRhbTv-Q?si=N1JjiTGlosnz6r-J",
         indicacao: "Livre",
     },
     {
@@ -59,7 +59,7 @@ const Filmes = [
         genero: "Ação",
         ano: 2019,
         sinopse: "Os Vingadores se reúnem para enfrentar Thanos em uma batalha épica para salvar o universo. Após os eventos de 'Vingadores: Guerra Infinita', eles tentam reverter os danos causados pelo vilão.",
-        video: "https://www.youtube.com/watch?v=6ZfuNTqbHE8",
+        video: "https://www.youtube.com/embed/TcMBFSGVi1c?si=ByzFZzVaKekj5xVo",
         indicacao: "12 anos",
     },
     {
@@ -108,16 +108,16 @@ const Filmes = [
         indicacao: "12 anos",
     }
 ];
-const FilmesArray = JSON.stringify(Filmes);
-localStorage.setItem( 'FilmesArray' , FilmesArray );
+// const FilmesArray = JSON.stringify(Filmes);
+// localStorage.setItem( 'FilmesArray' , FilmesArray );
 
 function exibirFilmes(){
-    Filmes.forEach((filme =>{
-        if(filme.genero=='Aventura'){
-            const card = document.createElement('div')
-            card.classList.add('movie-card');
-            card.innerHTML=`<img src='${filme.foto}'</img>`
-            card.addEventListener('click', () => janelaFilme(filme) )
+        Filmes.forEach((filme =>{
+            if(filme.genero=='Aventura'){
+                const card = document.createElement('div')
+                card.classList.add('movie-card');
+                card.innerHTML=`<img src='${filme.foto}'</img>`
+                card.addEventListener('click', () => janelaFilme(filme) )
             //tá, essa linha 111 é uma putaria
             //resumidamente, eu descobri q só funcionaria se eu fizesse uma arrow function que chama a função janelaFilme
             //pq por sem a arrow o código já roda o eventlistener imediatamente, e n espera eu clicar nela
@@ -129,6 +129,12 @@ function exibirFilmes(){
             card.innerHTML=`<img src='${filme.foto}'</img>`
             card.addEventListener('click', () => janelaFilme(filme) )
             acao.appendChild(card)
+
+            /*
+                <div class="movie-card">
+                    <img src>
+                </div>
+            */
         }else if(filme.genero=='Crime'){
             const card = document.createElement('div')
             card.classList.add('movie-card')
@@ -148,9 +154,8 @@ function exibirFilmes(){
             card.addEventListener('click', () => janelaFilme(filme) )
             drama.appendChild(card)            
         }
-    
-}))
-
+        
+    }))
 }
 
 function janelaFilme(filme){
@@ -190,7 +195,8 @@ function janelaFilme(filme){
         localStorage.setItem('userLogado', JSON.stringify(userLogado));
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
     }
-
+    const FilmeAssistir=filme
+    localStorage.setItem('FilmeAssistir',JSON.stringify(FilmeAssistir))
     window.location.href = "filme.html";
 });
     const botaoFechar = document.querySelector('#fecharJanela');
@@ -230,15 +236,21 @@ botaoMaisTarde.addEventListener('click', () => {
 });
 }
 function atualizarMaisTarde() {
-  AssistirMaisTarde.innerHTML = "";
+    if(perfilLogado.assistirMaisTarde && perfilLogado.assistirMaisTarde.length>0){
 
-  arrayTarde.forEach(filme => {
-      const card = document.createElement('div');
-      card.classList.add('movie-card');
-      card.innerHTML = `<img src="${filme.foto}" />`;
-      card.addEventListener('click', () => janelaFilme(filme));
-      AssistirMaisTarde.appendChild(card);
-  });
+        AssistirMaisTarde.innerHTML = "";
+        
+        arrayTarde.forEach(filme => {
+            const card = document.createElement('div');
+            card.classList.add('movie-card');
+            card.innerHTML = `<img src="${filme.foto}" />`;
+            card.addEventListener('click', () => janelaFilme(filme));
+            AssistirMaisTarde.appendChild(card);
+        });
+    }
+  else{
+    AssistirMaisTarde.innerHTML="<p>Nenhum filme marcado para assistir mais tarde</p>"
+  }
 }
 function exibirAssistidosRecentemente() {
     AssistidoRecente.innerHTML = ""; // limpa para não duplicar
@@ -260,14 +272,15 @@ Surpresa.addEventListener("click", () => {
     const filmeAleatorio = Math.round(Math.random()*Filmes.length)
 
     const FilmeAssistir=Filmes[filmeAleatorio]
-    localStorage.setItem('FilmeAssistir', FilmeAssistir)
-
+    localStorage.setItem('FilmeAssistir',JSON.stringify (FilmeAssistir))
+    window.location.href='filme.html'
 })
 perfilVoltar.addEventListener("click", () =>{
     localStorage.removeItem('perfilLogado');
     window.location.href='perfil.html'
 })
 PesquisaFilme.addEventListener("input", () => {
+    
 
 })
 logout.addEventListener("click", () => {
@@ -277,7 +290,6 @@ logout.addEventListener("click", () => {
 })
 
 
-//n consegui impedir esta porra de criar varios modais, acho q da pra fazer isso com css.
 exibirFilmes();
 exibirAssistidosRecentemente();
 atualizarMaisTarde();

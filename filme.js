@@ -4,7 +4,8 @@ const filmeAssistindo = document.querySelector("#filmeAssistindo");
 const FilmeAssistir = localStorage.getItem('FilmeAssistir')
 const Assistindo = JSON.parse(FilmeAssistir);
 
-filmeAssistindo.src=`${Assistindo.video}`;
+console.log(filmeAssistindo)
+filmeAssistindo.setAttribute("src", Assistindo.video)
 
 Voltar.addEventListener("click", () => {
     localStorage.removeItem('FilmeAssistir')
