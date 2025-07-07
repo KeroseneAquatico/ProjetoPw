@@ -16,19 +16,19 @@
         <h2>Nome</h2>
         <input type="text" id="nomeCadastro">
         <h2>Email:</h2>
-        <input type="text" id="emailCadastro">
+        <input type="email" id="emailCadastro">
         <h2>Senha:</h2>
-        <input type="text" id="senhaCadastro">
+        <input type="password" id="senhaCadastro">
         <h2>Confirmar Senha:</h2>
-        <input type="text" id="senhaCadastro2">
+        <input type="password" id="senhaCadastro2">
         <div class="section">
         <h2>Selecione seu Plano de Assinatura</h2>
             
-        <label class="plan-container">
-            <div class="plan-option">
+        <div class="plan-container">
+            <label class="plan-option">
                 <input type="radio" id="planoBasico" name="planoAssinatura" value="basico" checked>
                 <span for="planoBasico">Plano Básico - R$ 19,90/mês</span>                
-            </div>
+            </label>
             
         <label class="plan-option">
             <input type="radio" id="planoPadrao" name="planoAssinatura" value="padrao">
@@ -39,7 +39,7 @@
             <input type="radio" id="planoPremium" name="planoAssinatura" value="premium">
             <span>Plano Premium - R$ 39,90/mês</span>
         </label>
-    </label>
+    </div>
 </div>
     <button id="CadastrarBtn">Cadastrar-se!</button>
     <p id="CadastroErro_msg" ></p>
