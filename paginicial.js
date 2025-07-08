@@ -17,10 +17,10 @@ const musical= document.querySelector("#musical");
 const romance= document.querySelector("#romance");
 const terror= document.querySelector("#terror");
 const thriller= document.querySelector("#thriller");
+const crime = document.querySelector("#crime")
 
 //Botoes e imputs e etc do html
 const Surpresa = document.querySelector("#Surpresa");
-const PesquisaFilme = document.querySelector("#PesquisaFilme");
 const logout = document.querySelector("#logout");
 const perfilVoltar = document.querySelector("#perfilVoltar");
 const imgPerfil = document.querySelector("#imgPerfil");
@@ -75,7 +75,7 @@ const Filmes = [
         genero: "Ficção Científica",
         ano: 2010,
         sinopse: "Dom Cobb, um ladrão especializado em roubar segredos durante o sonho das pessoas, é contratado para implantar uma ideia na mente de uma vítima. Mas essa missão complexa leva a um jogo mental sem limites.",
-        video: "https://www.youtube.com/watch?v=8hP9D6kZseM",
+        video: "https://www.youtube.com/embed/R_VX0e0PX90?si=aYWf3oqEsyruVvJo",
         indicacao: "14 anos",
     },
     {
@@ -84,7 +84,7 @@ const Filmes = [
         genero: "Aventura",
         ano: 1993,
         sinopse: "Quando um bilionário cria um parque temático com dinossauros geneticamente modificados, as coisas saem de controle e os cientistas devem lutar pela sobrevivência contra as criaturas selvagens.",
-        video: "https://www.youtube.com/watch?v=Cr8cNObG4Vo",
+        video: "https://www.youtube.com/embed/lc0UehYemQA?si=o9ZP_BGn1JtN5K9m",
         indicacao: "10 anos",
     },
     {
@@ -93,7 +93,7 @@ const Filmes = [
         genero: "Crime",
         ano: 1972,
         sinopse: "O chefe da máfia Don Vito Corleone lida com questões familiares e de poder dentro do mundo do crime organizado, enquanto tenta proteger seu império contra ameaças externas.",
-        video: "https://www.youtube.com/watch?v=sY1S34973zA",
+        video: "https://www.youtube.com/embed/SaHZHU-44XA?si=XfB-xF3eKqEanFiK",
         indicacao: "16 anos",
     },
     {
@@ -102,7 +102,7 @@ const Filmes = [
         genero: "Drama",
         ano: 1994,
         sinopse: "Forrest Gump, um homem com um QI abaixo da média, narra sua vida extraordinária, que inclui momentos de sucesso no esporte, no exército e até mesmo no mundo dos negócios, sempre com o amor e a perseverança guiando seu caminho.",
-        video: "https://www.youtube.com/watch?v=bLvqoHBptjg",
+        video: "https://www.youtube.com/embed/bLvqoHBptjg?si=8CVbOtMeBayllB5V",
         indicacao: "10 anos",
     },
     {
@@ -111,10 +111,163 @@ const Filmes = [
         genero: "Aventura",
         ano: 2001,
         sinopse: "Frodo Bolseiro, um hobbit simples, recebe a missão de destruir um anel poderoso que pode colocar em risco a existência do mundo, enquanto enfrenta perigos e seres malignos na jornada para o Monte da Perdição.",
-        video: "https://www.youtube.com/watch?v=V75dMMIW2B4",
+        video: "https://www.youtube.com/embed/0i86oM1nHjM?si=efdyRFHOZIdNZoIH",
         indicacao: "12 anos",
+    },
+    {
+        foto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1SKCJXHvem32z9Nau6xtAHs9At5LC971QVw&s",
+        titulo: "John Wick 4",
+        genero: "Ação",
+        ano: 2023,
+        sinopse: "John Wick enfrenta novos inimigos poderosos em sua busca por liberdade, enfrentando assassinos ao redor do mundo.",
+        video: "https://www.youtube.com/embed/gZtmzT9Wgrw?si=cNSIWfVYKS0JYIZ8",
+        indicacao: "18 anos",
+    },
+    {
+        foto: "https://m.media-amazon.com/images/S/pv-target-images/52de664161898a47e4768736e6489d44419a213a4b1eeb34759b812921a26a90.jpg",
+        titulo: "Indiana Jones e os Caçadores da Arca Perdida",
+        genero: "Aventura",
+        ano: 1981,
+        sinopse: "O arqueólogo Indiana Jones corre contra nazistas para encontrar a Arca da Aliança, um artefato bíblico com poderes sobrenaturais.",
+        video: "https://www.youtube.com/embed/G_wcEapEkpM?si=hN2pKXssfIkh5e4l",
+        indicacao: "12 anos",
+    },
+    {
+        foto: "https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/90/86/15/20116705.jpg",
+        titulo: "O Máskara",
+        genero: "Comédia",
+        ano: 1994,
+        sinopse: "Um homem tímido encontra uma máscara mágica que transforma sua personalidade em um ser extravagante e caótico.",
+        video: "https://www.youtube.com/embed/E4YA2mQuVZw?si=OjWLRbss6GfsAQAk",
+        indicacao: "12 anos",
+    },
+    {
+        foto: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSGwKvL_jztJg_JZZ_xY1gv9CNGJkFEFi9EB_ZyoQCpkjOdC0jf",
+        titulo: "10 Coisas que Eu Odeio em Você",
+        genero: "Comédia Romântica",
+        ano: 1999,
+        sinopse: "Um adolescente tenta conquistar a rebelde Kat para que sua irmã possa namorar, mas acaba se apaixonando de verdade.",
+        video: "https://www.youtube.com/embed/tD76OqlJRwQ?si=VkvXq5xTJSoYy7k9",
+        indicacao: "12 anos",
+    },
+    {
+        foto: "https://br.web.img2.acsta.net/medias/nmedia/18/87/00/41/20028598.jpg",
+        titulo: "Ela Dança, Eu Danço",
+        genero: "Dança",
+        ano: 2006,
+        sinopse: "Um jovem problemático descobre seu talento para a dança ao conhecer uma bailarina determinada em uma escola de artes.",
+        video: "https://www.youtube.com/embed/Q29tzi5Aagg?si=PzVdoKHxCb2LoSeM",
+        indicacao: "12 anos",
+    },
+    {
+        foto: "https://br.web.img2.acsta.net/medias/nmedia/18/89/89/00/20143859.jpg",
+        titulo: "Intocáveis",
+        genero: "Drama",
+        ano: 2011,
+        sinopse: "A amizade improvável entre um tetraplégico rico e seu cuidador vindo da periferia muda a vida de ambos para sempre.",
+        video: "https://www.youtube.com/embed/-Fb8h4gChlU?si=ZnXLBnt2r_0hCNDa",
+        indicacao: "14 anos",
+    },
+    {
+        foto: "https://br.web.img2.acsta.net/medias/nmedia/18/97/53/07/20534288.jpg",
+        titulo: "Três Homens em Conflito",
+        genero: "Faroeste",
+        ano: 1966,
+        sinopse: "Três pistoleiros rivais buscam um tesouro escondido durante a Guerra Civil Americana, enfrentando traições e tiroteios.",
+        video: "https://www.youtube.com/embed/D_sJCkTzSAY?si=hIz60BAK1za3KYln",
+        indicacao: "14 anos",
+    },
+    {
+        foto: "https://a-static.mlcdn.com.br/1500x1500/poster-cartaz-harry-potter-e-a-pedra-filosofal-a-pop-arte-poster/poparteskins2/15938519339/9d36fb667e7df19848b8df63b9bb1026.jpeg",
+        titulo: "Harry Potter e a Pedra Filosofal",
+        genero: "Fantasia",
+        ano: 2001,
+        sinopse: "Harry descobre que é um bruxo e parte para a Escola de Magia de Hogwarts, onde vive aventuras mágicas e enfrenta perigos.",
+        video: "https://www.youtube.com/embed/SFzft_2dcV0?si=SYRabrSGD_da4UUJ",
+        indicacao: "Livre",
+    },
+    {
+        foto: "https://upload.wikimedia.org/wikipedia/pt/b/bb/BladeRunner-P%C3%B4ster.jpg",
+        titulo: "Blade Runner",
+        genero: "Ficção Científica",
+        ano: 1982,
+        sinopse: "Em um futuro distópico, um caçador de androides precisa eliminar replicantes que ameaçam a ordem humana.",
+        video: "https://www.youtube.com/embed/eogpIG53Cis?si=OlIOSY2UjdgoMyyh",
+        indicacao: "14 anos",
+    },
+    {
+        foto: "https://a-static.mlcdn.com.br/1500x1500/poster-cartaz-o-resgate-do-soldado-ryan-c-pop-arte-poster/poparteskins2/15938515318/7af3b53bf9bae6fefe027ed38903cdaa.jpeg",
+        titulo: "O Resgate do Soldado Ryan",
+        genero: "Filme de Guerra",
+        ano: 1998,
+        sinopse: "Durante a Segunda Guerra Mundial, um grupo de soldados recebe a missão de resgatar um paraquedista atrás das linhas inimigas.",
+        video: "https://www.youtube.com/embed/WdHJ_nLRjIA?si=FAyuLxPJ2emgsupk",
+        indicacao: "16 anos",
+    },
+    {
+        foto: "https://m.media-amazon.com/images/M/MV5BYjcyNGRkODktYmJkNy00MDljLTg3YTItZDMzYzA2NTk5MmZiXkEyXkFqcGc@._V1_.jpg",
+        titulo: "Os Infiltrados",
+        genero: "Filme Policial",
+        ano: 2006,
+        sinopse: "Um policial disfarçado se infiltra na máfia de Boston, enquanto um criminoso atua como informante dentro da polícia.",
+        video: "https://www.youtube.com/embed/PYJQEb8bPew?si=LFY5IKzmfdayBkVs",
+        indicacao: "16 anos",
+    },
+    {
+        foto: "https://upload.wikimedia.org/wikipedia/pt/thumb/d/da/The_Irishman_p%C3%B4ster.png/250px-The_Irishman_p%C3%B4ster.png",
+        titulo: "O Irlandês",
+        genero: "Crime",
+        ano: 2019,
+        sinopse: "Um assassino de aluguel reflete sobre sua vida de crimes e sua relação com figuras históricas da máfia americana.",
+        video: "https://www.youtube.com/embed/ZxuTltUvvkI?si=vdXgfS14gQvAlVq2",
+        indicacao: "16 anos",
+    },
+    {
+        foto: "https://br.web.img2.acsta.net/medias/nmedia/18/90/53/94/20101506.jpg",
+        titulo: "O Sexto Sentido",
+        genero: "Mistério",
+        ano: 1999,
+        sinopse: "Um psicólogo infantil tenta ajudar um menino que afirma ver pessoas mortas, revelando segredos chocantes.",
+        video: "https://www.youtube.com/embed/3-ZP95NF_Wk?si=WrzvR1EH4k8Yx_Ln",
+        indicacao: "14 anos",
+    },
+    {
+        foto: "https://upload.wikimedia.org/wikipedia/pt/c/c0/La_La_Land_%28filme%29.png",
+        titulo: "La La Land",
+        genero: "Musical",
+        ano: 2016,
+        sinopse: "Um pianista e uma atriz tentam equilibrar seus sonhos artísticos com o romance florescente entre eles.",
+        video: "https://www.youtube.com/embed/zXvgkkNMi-4?si=OPxV6J5EGW44Ge_q",
+        indicacao: "12 anos",
+    },
+    {
+        foto: "https://br.web.img3.acsta.net/medias/nmedia/18/91/21/92/20135014.jpg",
+        titulo: "Diário de uma Paixão",
+        genero: "Romance",
+        ano: 2004,
+        sinopse: "Uma história de amor que ultrapassa décadas, contada por um idoso que lê para uma mulher em um asilo.",
+        video: "https://www.youtube.com/embed/DyfWPxB1pZM?si=HsqCteyAGwBESq8Z",
+        indicacao: "12 anos",
+    },
+    {
+        foto: "https://br.web.img2.acsta.net/pictures/210/166/21016629_2013062820083878.jpg",
+        titulo: "Invocação do Mal",
+        genero: "Terror",
+        ano: 2013,
+        sinopse: "Investigadores paranormais ajudam uma família aterrorizada por uma presença maligna em sua casa rural.",
+        video: "https://www.youtube.com/embed/GQrrXceHn2E?si=xHJ_UU4wB_hqQzXF",
+        indicacao: "16 anos",
+    },
+    {
+        foto: "https://br.web.img3.acsta.net/pictures/210/124/21012465_2013061319170245.jpg",
+        titulo: "Seven: Os Sete Crimes Capitais",
+        genero: "Thriller",
+        ano: 1995,
+        sinopse: "Dois detetives perseguem um assassino em série cujos crimes são inspirados nos sete pecados capitais.",
+        video: "https://www.youtube.com/embed/_ZeWFddoohs?si=TGPzxo5Mg9HWC54F",
+        indicacao: "18 anos",
     }
-];
+];// Array com os filmes 
 
 function exibirFilmes(){
         Filmes.forEach((filme =>{
@@ -148,8 +301,79 @@ function exibirFilmes(){
             card.innerHTML=`<img src='${filme.foto}'</img>`
             card.addEventListener('click', () => janelaFilme(filme) )
             drama.appendChild(card)            
+        }else if(filme.genero=='Comédia'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            comedia.appendChild(card)
+        }else if(filme.genero=='Comédia Romântica'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            comediaRomantica.appendChild(card)
+        }else if(filme.genero=='Dança'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            danca.appendChild(card)
+        }else if(filme.genero=='Faroeste'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            faroeste.appendChild(card)
+        }else if(filme.genero=='Fantasia'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            fantasia.appendChild(card)
+        }else if(filme.genero=='Filme de Guerra'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            Guerra.appendChild(card)
+        }else if(filme.genero=='Filme Policial'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            policial.appendChild(card)
+        }else if(filme.genero=='Mistério'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            misterio.appendChild(card)
+        }else if(filme.genero=='Musical'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            musical.appendChild(card)
+        }else if(filme.genero=='Romance'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            romance.appendChild(card)
+        }else if(filme.genero=='Terror'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            terror.appendChild(card)
+        }else if(filme.genero=='Thriller'){
+            const card = document.createElement('div')
+            card.classList.add('movie-card');
+            card.innerHTML=`<img src='${filme.foto}'</img>`
+            card.addEventListener('click', () => janelaFilme(filme) )
+            thriller.appendChild(card)
         }
-        
     }))
 }
 
@@ -264,17 +488,35 @@ function exibirAssistidosRecentemente() {// mesma lógica da de cima só q pra o
 Surpresa.addEventListener("click", () => {
     const filmeAleatorio = Math.round(Math.random()*Filmes.length)// pega um filme aleatório do array
 
+     const jaAssistido = perfilLogado.assistidoRecente.find(f => f.titulo === Filmes[filmeAleatorio].titulo);
+    if (!jaAssistido) {
+        perfilLogado.assistidoRecente.unshift(Filmes[filmeAleatorio]);
+        // Limita a lista para os 10 mais recentes
+        if (perfilLogado.assistidoRecente.length > 10) {
+            perfilLogado.assistidoRecente.pop();
+        }
+
+        const perfilIndex = userLogado.perfil.findIndex(p => p.nomePerfil === perfilLogado.nomePerfil);
+        userLogado.perfil[perfilIndex] = perfilLogado;
+
+        const userIndex = usuarios.findIndex(u => u.email === userLogado.email);
+        usuarios[userIndex] = userLogado;
+
+        localStorage.setItem('perfilLogado', JSON.stringify(perfilLogado));
+        localStorage.setItem('userLogado', JSON.stringify(userLogado));
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        // arrumar em todos os lugares no local storage a alteração
+    }
+
     const FilmeAssistir=Filmes[filmeAleatorio]
     localStorage.setItem('FilmeAssistir',JSON.stringify (FilmeAssistir))// coloca no local storage
     window.location.href='filme.html'// manda pra pagina de filme
+
+    
 })
 perfilVoltar.addEventListener("click", () =>{
     localStorage.removeItem('perfilLogado');
     window.location.href='perfil.html'// volta pra seleção de perfil
-})
-PesquisaFilme.addEventListener("input", () => {
-    
-
 })
 logout.addEventListener("click", () => {
     localStorage.removeItem('perfilLogado');// tira o perfil logado do local storage
