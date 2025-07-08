@@ -1,3 +1,4 @@
+//Pegar as divs do html
 const AssistidoRecente = document.querySelector("#AssistidoRecente");
 const AssistirMaisTarde = document.querySelector("#AssistirMaisTarde");
 const acao = document.querySelector("#acao");
@@ -17,31 +18,37 @@ const romance= document.querySelector("#romance");
 const terror= document.querySelector("#terror");
 const thriller= document.querySelector("#thriller");
 
+//Botoes e imputs e etc do html
 const Surpresa = document.querySelector("#Surpresa");
 const PesquisaFilme = document.querySelector("#PesquisaFilme");
 const logout = document.querySelector("#logout");
 const perfilVoltar = document.querySelector("#perfilVoltar");
 const imgPerfil = document.querySelector("#imgPerfil");
 
+
+//todos os usuarios do local storage
 const usuariosRegistro = localStorage.getItem('usuarios');
 const usuarios = JSON.parse(usuariosRegistro);
 
+//qual perfil logou no local storage
 const perfilUsuario = localStorage.getItem('perfilLogado');
 const perfilLogado = JSON.parse(perfilUsuario);
 
+// quem que fez login lá no inicio da pagina
 const acharUserLogado = localStorage.getItem('userLogado');
 const userLogado = JSON.parse(acharUserLogado);
 
+//div da lista de filmes
 const divFilmes= document.querySelector("#FilmesDiv")
 
-const armazenamentoArrayTarde = perfilLogado.assistirMaisTarde
+const armazenamentoArrayTarde = perfilLogado.assistirMaisTarde;//Pega os bglh de assistir mais tarde do perfil
 let arrayTarde = [];
 
-if(armazenamentoArrayTarde){
+if(armazenamentoArrayTarde){// mesma lógica do armazenamento de usuários
     arrayTarde=armazenamentoArrayTarde;
 }
 
-imgPerfil.src=`${perfilLogado.imagemPerfil}`;
+imgPerfil.src=`${perfilLogado.imagemPerfil}`;// coloca a imagem do perfil
 
 const Filmes = [
     {
@@ -108,20 +115,14 @@ const Filmes = [
         indicacao: "12 anos",
     }
 ];
-// const FilmesArray = JSON.stringify(Filmes);
-// localStorage.setItem( 'FilmesArray' , FilmesArray );
 
 function exibirFilmes(){
         Filmes.forEach((filme =>{
-            if(filme.genero=='Aventura'){
+            if(filme.genero=='Aventura'){//percorre todos os filmes e coloca eles em cada uma de suas divs que estão separadas por genero
                 const card = document.createElement('div')
                 card.classList.add('movie-card');
                 card.innerHTML=`<img src='${filme.foto}'</img>`
                 card.addEventListener('click', () => janelaFilme(filme) )
-            //tá, essa linha 111 é uma putaria
-            //resumidamente, eu descobri q só funcionaria se eu fizesse uma arrow function que chama a função janelaFilme
-            //pq por sem a arrow o código já roda o eventlistener imediatamente, e n espera eu clicar nela
-            //é bizarro, n entendi direito mas é isso aí
             aventura.appendChild(card);
         }else if(filme.genero=='Ação'){
             const card = document.createElement('div')
@@ -129,12 +130,6 @@ function exibirFilmes(){
             card.innerHTML=`<img src='${filme.foto}'</img>`
             card.addEventListener('click', () => janelaFilme(filme) )
             acao.appendChild(card)
-
-            /*
-                <div class="movie-card">
-                    <img src>
-                </div>
-            */
         }else if(filme.genero=='Crime'){
             const card = document.createElement('div')
             card.classList.add('movie-card')
@@ -158,7 +153,7 @@ function exibirFilmes(){
     }))
 }
 
-function janelaFilme(filme){
+function janelaFilme(filme){// função que cria a div dos detalhes pra assistir, marcar como mais tarde e etc
     const infoWindow = document.createElement('div');
     infoWindow.classList.add('infoWindow');
     infoWindow.innerHTML = `
@@ -194,18 +189,19 @@ function janelaFilme(filme){
         localStorage.setItem('perfilLogado', JSON.stringify(perfilLogado));
         localStorage.setItem('userLogado', JSON.stringify(userLogado));
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        // arrumar em todos os lugares no local storage a alteração
     }
-    const FilmeAssistir=filme
-    localStorage.setItem('FilmeAssistir',JSON.stringify(FilmeAssistir))
-    window.location.href = "filme.html";
+    const FilmeAssistir=filme // acha qual filme ele quer assistir
+    localStorage.setItem('FilmeAssistir',JSON.stringify(FilmeAssistir)) // colocar ele no local storage pra passar pro proximo html
+    window.location.href = "filme.html";// passa pro html pra mostrar o filme
 });
     const botaoFechar = document.querySelector('#fecharJanela');
     botaoFechar.addEventListener('click', () =>{
-        infoWindow.remove();
+        infoWindow.remove();// fecha o modal
     })                 
 const botaoMaisTarde = document.querySelector('#assistirMaisTarde');
 botaoMaisTarde.addEventListener('click', () => {
-    const index = arrayTarde.findIndex(e => e.titulo === filme.titulo);
+    const index = arrayTarde.findIndex(e => e.titulo === filme.titulo);// procura pra ver se ele ta marcado como assistir mais tarde
 
     if (index === -1) {
         // Adiciona filme ao array
@@ -221,7 +217,6 @@ botaoMaisTarde.addEventListener('click', () => {
     // Atualiza localStorage do perfil
     localStorage.setItem('perfilLogado', JSON.stringify(perfilLogado));
 
-    // Também atualiza no objeto geral de usuários (opcional, se quiser persistência completa)
     const indexUsuario = usuarios.findIndex(u => u.email === userLogado.email);
     if (indexUsuario !== -1) {
         usuarios[indexUsuario].perfil.forEach(perfil => {
@@ -230,16 +225,14 @@ botaoMaisTarde.addEventListener('click', () => {
             }
         });
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    }
+    }// atualiza no local storage
 
     atualizarMaisTarde(); // atualiza os cards na tela
 });
 }
 function atualizarMaisTarde() {
-    if(perfilLogado.assistirMaisTarde && perfilLogado.assistirMaisTarde.length>0){
-
+    if(perfilLogado.assistirMaisTarde && perfilLogado.assistirMaisTarde.length>0){// confere se tem um filme pra assistir mais tarde
         AssistirMaisTarde.innerHTML = "";
-        
         arrayTarde.forEach(filme => {
             const card = document.createElement('div');
             card.classList.add('movie-card');
@@ -247,12 +240,12 @@ function atualizarMaisTarde() {
             card.addEventListener('click', () => janelaFilme(filme));
             AssistirMaisTarde.appendChild(card);
         });
-    }
+    }//se tiver coloca na lista
   else{
     AssistirMaisTarde.innerHTML="<p>Nenhum filme marcado para assistir mais tarde</p>"
-  }
+  }//se não passa essa mensagemzinha
 }
-function exibirAssistidosRecentemente() {
+function exibirAssistidosRecentemente() {// mesma lógica da de cima só q pra o de assitir recentemente
     AssistidoRecente.innerHTML = ""; // limpa para não duplicar
 
     if (perfilLogado.assistidoRecente && perfilLogado.assistidoRecente.length > 0) {
@@ -269,27 +262,27 @@ function exibirAssistidosRecentemente() {
 }
 
 Surpresa.addEventListener("click", () => {
-    const filmeAleatorio = Math.round(Math.random()*Filmes.length)
+    const filmeAleatorio = Math.round(Math.random()*Filmes.length)// pega um filme aleatório do array
 
     const FilmeAssistir=Filmes[filmeAleatorio]
-    localStorage.setItem('FilmeAssistir',JSON.stringify (FilmeAssistir))
-    window.location.href='filme.html'
+    localStorage.setItem('FilmeAssistir',JSON.stringify (FilmeAssistir))// coloca no local storage
+    window.location.href='filme.html'// manda pra pagina de filme
 })
 perfilVoltar.addEventListener("click", () =>{
     localStorage.removeItem('perfilLogado');
-    window.location.href='perfil.html'
+    window.location.href='perfil.html'// volta pra seleção de perfil
 })
 PesquisaFilme.addEventListener("input", () => {
     
 
 })
 logout.addEventListener("click", () => {
-    localStorage.removeItem('perfilLogado');
-    localStorage.removeItem('userLogado');
-    window.location.href="login.html";
+    localStorage.removeItem('perfilLogado');// tira o perfil logado do local storage
+    localStorage.removeItem('userLogado');// tira quem logou do local storage
+    window.location.href="login.html";// sair do código e voltar diretamente pro login
 })
 
-
+//atualiza tudo no inicio do código
 exibirFilmes();
 exibirAssistidosRecentemente();
 atualizarMaisTarde();
