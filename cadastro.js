@@ -1,5 +1,5 @@
-const formID= document.querySelector("formID");
-const CadastroErro_msg = document.querySelector("CadastroErro_msg");
+const formID= document.querySelector("#formID");
+const CadastroErro_msg = document.querySelector("#CadastroErro_msg");
 
 form.addEventListener("click",async (e) => {
     e.preventDefault();// previne o comportamento padrão do form
