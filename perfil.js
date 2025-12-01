@@ -12,7 +12,7 @@ logout.addEventListener("click", ()=>{
     }) //ele tira quem logou do local storage e volta pra pagina de login
     
     
-    function MostrarPerfis() {
+    await function MostrarPerfis() {
   const array = await fetch('api/cineon/listarPerfil.php',{
       method:'GET'
   }).then(res => res.json());// pega os perfis do user logado
