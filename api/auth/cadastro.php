@@ -54,8 +54,8 @@ $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
 $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, password, plano_id) VALUES (?, ?, ?, ?)");
 if ($stmt->execute([$name, $email, $hashedPassword, $planoAssinatura])) {
-    $stmtPerfil = $conn->prepare("INSERT INTO perfis (usuario_id, nome) VALUES (LAST_INSERT_ID(), ?)");
-    $stmtPerfil->execute([$name]);
+    $stmtPerfil = $conn->prepare("INSERT INTO perfis (usuario_id, nome, imagem) VALUES (LAST_INSERT_ID(), ?, ?)");
+    $stmtPerfil->execute([$name, "img1.jpg"]);
     echo json_encode([
         "error" => false,
         "message" => "Cadastro realizado com sucesso!"
@@ -63,6 +63,6 @@ if ($stmt->execute([$name, $email, $hashedPassword, $planoAssinatura])) {
 } else {
     echo json_encode([
         "error" => true,
-        "message" => "Erro ao cadastrar usuário: "
-    ]);
-}
+        "message" => "Erro ao cadastrar usuário"
+]);
+};

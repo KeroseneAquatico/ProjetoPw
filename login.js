@@ -1,6 +1,6 @@
-const LoginEmail = document.querySelector("#LoginEmail");
-const LoginSenha = document.querySelector("#LoginSenha");
-//Para entrar
+
+const formLogin = document.querySelector('#formLogin');
+
 
 const LoginDiv = document.querySelector("#LoginDiv");
 
@@ -9,100 +9,110 @@ const IrCadastro = document.querySelector("#IrCadastro");
 const Entrar = document.querySelector("#Entrar");
 const ErroLogin_msg = document.querySelector("#ErroLogin_msg");
 
-const usuariosRegistro = localStorage.getItem('usuarios');// Puxa o array de usuários
-const usuarios = JSON.parse(usuariosRegistro); // aq nós transforma esse array de string ( q precisa pra guardar no JSON) pra objeto
+const email = document.querySelector("#LoginEmail");
+const password = document.querySelector("#LoginSenha");
 
+Entrar.addEventListener("click", async (e) => {
+  
+  e.preventDefault();
+  const formData = new FormData(formLogin);
 
+  const data = await fetch('API/auth/login.php', {
+    method: 'POST',
+    body: formData
+  }).then(res => res.json());
 
-Entrar.addEventListener("click", () => {
-  if (LoginEmail.value === "" || LoginSenha.value === "") {// confere se a pessoa inseriu algo
-    ErroLogin_msg.innerHTML = "Preencha TODOS os campos, por favor!";
+  if(!data.error){
+    const msgSuccess = document.createElement('span');
+    msgSuccess.innerHTML = `${data.message}`;
+    msgSuccess.style.color = 'green';
+    LoginDiv.appendChild(msgSuccess);
+    setTimeout(() =>{
+      window.location.href = 'perfil.html';
+    }, 1000);
     return;
+  }else{
+    ErroLogin_msg.innerHTML = `${data.message}`;
+    ErroLogin_msg.style.color = 'red';
+    LoginDiv.appendChild(ErroLogin_msg)
+    email.value = '';
+    password.value = '';
+    const Esqueceu_senha_btn = document.createElement("button");
+    Esqueceu_senha_btn.textContent = "Recuperar conta";
+    LoginDiv.appendChild(Esqueceu_senha_btn);
+    Esqueceu_senha_btn.addEventListener("click", RecuperandoSenha);
   }
 
-  if (LoginSenha.value.length < 8) {// confere se a senha tem +8 caracteres
-    ErroLogin_msg.innerHTML = "A senha tem que conter no mínimo 8 dígitos";
-    return;
-  }
-
-  const usuarioValido = usuarios.find(
-    (usuario) =>
-      usuario.email === LoginEmail.value &&
-      usuario.senha === LoginSenha.value
-  );// Isso tudo serve pra achar as informaçoes e se elas são validas
-
-  if (usuarioValido) {// se achou ent tem q fazer isso
-    const userLogado = JSON.stringify(usuarioValido);
-    localStorage.setItem("userLogado", userLogado);// criamos a chave do user logado
-    window.location.href = "perfil.html";// manda pra pagina de perfil
-    return;
-  }
-
-  // ❌ Login falhou
-  ErroLogin_msg.innerHTML =
-    "❌ Email ou senha incorretos, por favor confira os dados informados!";
-  LoginSenha.value = "";
-  LoginEmail.value = "";
-
-  const Esqueceu_senha_btn = document.createElement("button");
-  Esqueceu_senha_btn.textContent = "Recuperar conta";
-  ErroLogin_msg.appendChild(Esqueceu_senha_btn);
-
-  Esqueceu_senha_btn.addEventListener("click", RecuperandoSenha);
+  
+  
 });
 
 function RecuperandoSenha() {
   const Div_EsqueciSenha = document.createElement("div");
   Div_EsqueciSenha.innerHTML = `
+    <form id="formRecuperar">
     <br><span>Email cadastrado:</span>
-    <input id="EmailRecupera" type="email" placeholder="Digite seu e-mail">
+    <input id="EmailRecupera" type="email" name="emailRecupera" placeholder="Digite seu e-mail">
     <br><span>Nome cadastrado:</span>
-    <input id="NomeRecupera" type="text" placeholder="Digite o nome usado no cadastro">
+    <input id="NomeRecupera" type="text" name="nomeRecupera" placeholder="Digite o nome usado no cadastro">
     <br><button id="ProcurandoSenha">Recuperar</button>
-  `;
-  LoginDiv.appendChild(Div_EsqueciSenha);// coloca na div de login
-
-  document.querySelector("#ProcurandoSenha").addEventListener("click", () => {
-    const EmailRecupera = document.querySelector("#EmailRecupera").value.trim();// .trim remove os espaços do inicio e fim do texto pra nn dar merda
-    const NomeRecupera = document.querySelector("#NomeRecupera").value.trim();
-
-    const usuarioEncontrado = usuarios.find(
-      (usuario) =>
-        usuario.email === EmailRecupera &&
-        usuario.nome.toLowerCase() === NomeRecupera.toLowerCase()
-    );// procura o usuario
-
-    if (!usuarioEncontrado) {
-      ErroLogin_msg.innerHTML =
-        "❌ Os dados não conferem com nenhum usuário cadastrado!";
-      return;
-    }// Aq se ele nn existe mostra oq tem em cima
-
-    // Mostrar campo para nova senha
-    Div_EsqueciSenha.innerHTML = `
-      <br><span>Insira sua nova senha:</span>
-      <input id="senhaRecuperada" type="password" placeholder="Nova senha">
-      <br><button id="confirmarNovaSenha">Confirmar nova senha</button>
+   </form>
     `;
+  LoginDiv.appendChild(Div_EsqueciSenha);
 
-    document.querySelector("#confirmarNovaSenha").addEventListener("click", () => {
-      const novaSenha = document.querySelector("#senhaRecuperada").value;
+  document.querySelector("#ProcurandoSenha").addEventListener("click", async (e) => {
+  
+    
+    const form = document.querySelector("#formRecuperar");
+    const formDataRecuperacao = new FormData(form);
 
-      if (novaSenha.length < 8) {
-        ErroLogin_msg.innerHTML =
-          "A nova senha precisa ter no mínimo 8 caracteres!";
-        return;
+  const dataEsqueceu = await fetch('API/auth/recuperar.php', {
+    method: 'POST',
+    body: formDataRecuperacao
+  }).then(res => res.json());
+  
+
+  if(dataEsqueceu.error === false){
+    Div_EsqueciSenha.innerHTML = `
+      <form id="formNovaSenha"
+      <br><span>Insira sua nova senha:</span>
+      <input id="senhaRecuperada" type="password" name="newPassword" placeholder="Nova senha">
+      <br><button id="confirmarNovaSenha">Confirmar nova senha</button>
+      </form>    
+      `;
+
+    document.querySelector("#confirmarNovaSenha").addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const formDataNew = new FormData(document.querySelector("#formNovaSenha"));
+      const dataNovaSenha = await fetch('API/auth/redefinirSenha.php', {
+        method: 'POST',
+        body: formDataNew
+      }).then(res => res.json());
+      
+      if(dataNovaSenha.error === false){
+      const msgSuccess2 = document.createElement('span');
+      msgSuccess2.innerHTML = dataNovaSenha.message;
+      msgSuccess2.style.color = 'green';
+      LoginDiv.appendChild(msgSuccess2);  
+      if(ErroLogin_msg.innerHTML !== ''){
+        ErroLogin_msg.innerHTML = '';
       }
-
-      // Atualiza senha e salva no localStorage
-      usuarioEncontrado.senha = novaSenha;
-      localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-      ErroLogin_msg.innerHTML = "✅ Senha atualizada com sucesso!";
-      Div_EsqueciSenha.remove();// div some dps de todo o processo
+    }else{
+      ErroLogin_msg.innerHTML = dataNovaSenha.message;
+      ErroLogin_msg.style.color = 'red';
+      return;
+    }
+      Div_EsqueciSenha.remove();     
     });
-  });
+  }
+  else{
+    ErroLogin_msg.innerHTML = `${dataEsqueceu.message}`;
+    ErroLogin_msg.style.color = 'red';
+  }
+});
 }
-IrCadastro.addEventListener("click", () => {
+IrCadastro.addEventListener("click", (e) => {
+  e.preventDefault();
   window.location.href = "cadastro.html"
 })

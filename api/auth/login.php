@@ -28,10 +28,38 @@ if(strlen($password) < 8){
     exit;
 };
 
+if(
+    empty($email) ||
+    empty($password)
+){
+    echo json_encode([
+        "error" => true,
+        "message" => "Preencha TODOS os campos, por favor!"
+    ]);
+    exit;
+};
+
+if(strlen($password) < 8){
+    echo json_encode([
+        "error" => true,
+        "message" => "A senha tem que conter no mínimo 8 dígitos"
+    ]);
+    exit;
+};
+
+
 $sql = "SELECT * FROM USUARIOS WHERE email = ?";
 $stmt = $conn->prepare($sql);
 $stmt->execute([$email]);
 $data = $stmt->fetch();
+
+if(!$data){
+    echo json_encode([
+        "error" => true,
+        "message" => "nenhum usuário cadastrado com esses dados!"
+    ]);
+    exit;
+}
 
 if(!password_verify($password, $data["password"])){
     echo json_encode([
