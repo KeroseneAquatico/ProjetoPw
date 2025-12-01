@@ -9,5 +9,5 @@ $userId = $_SESSION['user_id'];
 $stmt = $conn->prepare("DELETE FROM perfis WHERE id = ? AND user_id = ?");
 $stmt -> execute([$perfilId, $userId]);
 
-echo json_encode(['status' => 'success']);
+echo json_encode(['error' => false, 'message' => 'Perfil excluído com sucesso.']);
 ?>
