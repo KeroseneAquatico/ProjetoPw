@@ -107,12 +107,8 @@ async function CriarPerfil() {
   })
  async function gozeil (){
     
-    
     const selecionada = Galeria.querySelector(".foto.selecionado");// achamos qual foto a pessoa escolheu
     
-    
- 
-
       const formCriarPerfil = document.querySelector("#formCriarPerfil");
       const formDataCriar = new FormData(formCriarPerfil);
       const data = await fetch('api/cineon/criarPerfil.php', {
@@ -121,7 +117,6 @@ async function CriarPerfil() {
       }).then(res => res.json()); 
       MensagemPerfil.innerHTML = data.message;
     
-
       MostrarPerfil();//mostra a lista de todos os perfils dnv
     }
  }
