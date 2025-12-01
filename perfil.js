@@ -1,23 +1,21 @@
 const perfilDiv = document.querySelector("#perfilDiv");
 const logout = document.querySelector("#logout");
-
-const array = await fetch('api/cineon/listarPerfil.php',{
-    method:'GET'
-}).then(res => res.json());// pega os perfis do user logado
 const user = await fetch('api/auth/usuarioLogado.php',{
-    method:'GET'
+  method:'GET'
 }).then(res => res.json());// pega os dados do user logado 
 
-console.log(perfis);
-console.log(user);
+
 logout.addEventListener("click", ()=>{
     fetch('api/cineon/logout.php',{
-        method:'GET'})
-    window.location.href='login.html'
-}) //ele tira quem logou do local storage e volta pra pagina de login
-
-
-function MostrarPerfis() {
+      method:'GET'})
+      window.location.href='login.html'
+    }) //ele tira quem logou do local storage e volta pra pagina de login
+    
+    
+    function MostrarPerfis() {
+  const array = await fetch('api/cineon/listarPerfil.php',{
+      method:'GET'
+  }).then(res => res.json());// pega os perfis do user logado
   perfilDiv.innerHTML = "";
     array.perfis.forEach(perfil => {
     const div = document.createElement("div");
@@ -29,17 +27,24 @@ function MostrarPerfis() {
     `;
 
     perfilDiv.append(div);
+    const btnDeletar = div.querySelector(".btn-deletar");
+    btnDeletar.addEventListener("click", async () => {
+      const confirma = confirm(`Tem certeza que deseja deletar o perfil ${perfil.nome}?`);
+      if (confirma) {
+        const response = await fetch('api/cineon/perfilExcluir.php', {
+          method: 'GET'});
+        MostrarPerfis(); // Atualiza a lista de perfis após a deleção
     const Redirect = div.querySelector("#Redirect");
     Redirect.addEventListener("click", () => {
-      fetch('api/cineon/selecionarPerfil.php', {
+      fetch('api/cineon/perfil.php', {
         method: 'GET'})
       window.location.href = "paginicial.html";
     });// manda qual dos perfil logou e manda pra pagina inicial
 
 
 
-  })
-
+  }});
+    })
   };
   if(userLogado.planoUser == "basico" && userLogado.perfil.length<3 ||userLogado.planoUser == "padrao" && userLogado.perfil.length<4 ||userLogado.planoUser == "premium" && userLogado.perfil.length<5){ //Aq tem a logica para criar o botão de adicionar usuarios dependendo de quantos ele pode por plano
     const botaoCriar= document.createElement("button")
@@ -106,11 +111,7 @@ async function CriarPerfil() {
     const selecionada = Galeria.querySelector(".foto.selecionado");// achamos qual foto a pessoa escolheu
     
     
-    if(nomePerfilJaExistente(userLogado,NomePerfil.value)){// já tem um perfil com esse nome
-      MensagemPerfil.innerHTML = `Já existe um perfil com o nome ${NomePerfil.value}! Por favor escolha outro`
-      NomePerfil.value=''
-      return;
-    }else{
+ 
 
       const formCriarPerfil = document.querySelector("#formCriarPerfil");
       const formDataCriar = new FormData(formCriarPerfil);
@@ -119,12 +120,9 @@ async function CriarPerfil() {
         body: formDataCriar
       }).then(res => res.json()); 
       MensagemPerfil.innerHTML = data.message;
-    }
+    
 
       MostrarPerfil();//mostra a lista de todos os perfils dnv
     }
  }
 
-function nomePerfilJaExistente(userLogado, nome) {// passa o user logado e o nome do perfil como parametro
-    return userLogado.perfil.some(p => p.nomePerfil === nome);// SE TEM ALGUM PERFIL Q TEM O MSM NOME Q TAO QUERENDO COLOCAR ELE NAO VAI DEIXAR LÁ NO IF
-}
