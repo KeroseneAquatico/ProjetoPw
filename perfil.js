@@ -145,7 +145,7 @@ logout.addEventListener("click", () => {
 // MOSTRAR PERFIS
 // -------------------------------------
 async function MostrarPerfis() {
-  const array = await fetch('api/cineon/listarPerfil.php')
+  const array = await fetch('api/cineon/listarPerfis.php')
     .then(res => res.json());
 
   perfilDiv.innerHTML = "";
