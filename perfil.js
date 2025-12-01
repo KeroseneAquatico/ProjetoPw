@@ -1,7 +1,7 @@
 const perfilDiv = document.querySelector("#perfilDiv");
 const logout = document.querySelector("#logout");
 
-const perfis = await fetch('api/cineon/listarPerfil.php',{
+const array = await fetch('api/cineon/listarPerfil.php',{
     method:'GET'
 }).then(res => res.json());// pega os perfis do user logado
 const user = await fetch('api/auth/usuarioLogado.php',{
@@ -19,7 +19,7 @@ logout.addEventListener("click", ()=>{
 
 function MostrarPerfis() {
   perfilDiv.innerHTML = "";
-    perfis.perfis.forEach(perfil => {
+    array.perfis.forEach(perfil => {
     const div = document.createElement("div");
     div.classList.add("perfil-card");
     div.innerHTML = `
