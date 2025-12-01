@@ -46,41 +46,41 @@ CREATE TABLE IF NOT EXISTS filmes (
 -- Planos de exemplo
 INSERT INTO planos(nome, max_perfis) VALUES ('Básico', 1), ('Padrão', 4), ('Premium', 6);
 
--- Inserir gêneros se não existirem
 INSERT INTO generos(nome)
-SELECT 'Aventura' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Aventura');
+SELECT 'Aventura' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Aventura');
 INSERT INTO generos(nome)
-SELECT 'Ação' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Ação');
+SELECT 'Ação' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Ação');
 INSERT INTO generos(nome)
-SELECT 'Ficção Científica' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Ficção Científica');
+SELECT 'Ficção Científica' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Ficção Científica');
 INSERT INTO generos(nome)
-SELECT 'Crime' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Crime');
+SELECT 'Crime' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Crime');
 INSERT INTO generos(nome)
-SELECT 'Drama' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Drama');
+SELECT 'Drama' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Drama');
 INSERT INTO generos(nome)
-SELECT 'Comédia' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Comédia');
+SELECT 'Comédia' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Comédia');
 INSERT INTO generos(nome)
-SELECT 'Comédia Romântica' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Comédia Romântica');
+SELECT 'Comédia Romântica' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Comédia Romântica');
 INSERT INTO generos(nome)
-SELECT 'Dança' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Dança');
+SELECT 'Dança' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Dança');
 INSERT INTO generos(nome)
-SELECT 'Faroeste' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Faroeste');
+SELECT 'Faroeste' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Faroeste');
 INSERT INTO generos(nome)
-SELECT 'Fantasia' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Fantasia');
+SELECT 'Fantasia' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Fantasia');
 INSERT INTO generos(nome)
-SELECT 'Filme de Guerra' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Filme de Guerra');
+SELECT 'Filme de Guerra' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Filme de Guerra');
 INSERT INTO generos(nome)
-SELECT 'Filme Policial' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Filme Policial');
+SELECT 'Filme Policial' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Filme Policial');
 INSERT INTO generos(nome)
-SELECT 'Mistério' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Mistério');
+SELECT 'Mistério' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Mistério');
 INSERT INTO generos(nome)
-SELECT 'Musical' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Musical');
+SELECT 'Musical' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Musical');
 INSERT INTO generos(nome)
-SELECT 'Romance' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Romance');
+SELECT 'Romance' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Romance');
 INSERT INTO generos(nome)
-SELECT 'Terror' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Terror');
+SELECT 'Terror' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Terror');
 INSERT INTO generos(nome)
-SELECT 'Thriller' FROM DUAL WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Thriller');
+SELECT 'Thriller' WHERE NOT EXISTS (SELECT 1 FROM generos WHERE nome = 'Thriller');
+
 
 -- Inserir filmes (cada filme referencia o id do gênero pelo nome)
 INSERT INTO filmes(capa, titulo, ano, sinopse, video, indicacao, genero_id) VALUES
