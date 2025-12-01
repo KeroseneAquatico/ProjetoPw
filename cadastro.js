@@ -10,7 +10,7 @@ fetch('/api/auth/cadastro.php', {
 })
 .then(response => response.json())
 .then(data => {
-if(data.success){
+if(data.error === false){
     CadastroErro_msg.style.color = 'green';// muda a cor da mensagem para verde
     CadastroErro_msg.innerHTML = data.message;// mostra a mensagem de sucesso
     setTimeout(() =>{

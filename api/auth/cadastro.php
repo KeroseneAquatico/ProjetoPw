@@ -40,9 +40,17 @@ if(strlen($password) < 8){
     ]);
     exit;
 }
+if($planoAssinatura == "basico"){
+    $planoAssinatura = 1;
+} elseif($planoAssinatura == "padrão"){
+    $planoAssinatura = 2;
+} else {
+    $planoAssinatura = 3;
+}
+
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-$stmt = $conn->prepare("INSERT INTO usuarios (name, email, password, plano_assinatura) VALUES (?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO usuarios (nome, email, password, plano_id) VALUES (?, ?, ?, ?)");
 if($stmt->execute([ $name, $email, $hashedPassword, $planoAssinatura])){
     echo json_encode([
         "error" => false,
