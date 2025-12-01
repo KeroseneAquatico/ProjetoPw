@@ -114,9 +114,10 @@ async function CriarPerfil() {
       const data = await fetch('api/cineon/criarPerfil.php', {
         method: 'POST',
         body: formDataCriar
-      }).then(res => res.json()); 
+      }).then(res => res.json());
+      setTimeout(() => { 
       MensagemPerfil.innerHTML = data.message;
-    
+      }, 1000);
       MostrarPerfil();//mostra a lista de todos os perfils dnv
     }
  }
