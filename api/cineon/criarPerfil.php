@@ -5,7 +5,7 @@ include '../connection.php';
 session_start();
 
 
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['id'];
 $nomePerfil = $_POST('nomePerfil');
 $iconePerfil = $_POST('iconePerfil');
 if( !isset($nomePerfil) || empty($nomePerfil)){

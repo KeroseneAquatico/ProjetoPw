@@ -4,7 +4,7 @@ include '../connection.php';
 session_start();
 
 $perfilId = $_GET['perfilId'];
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['id'];
 
 $stmt = $conn->prepare("DELETE FROM perfis WHERE id = ? AND user_id = ?");
 $stmt -> execute([$perfilId, $userId]);
