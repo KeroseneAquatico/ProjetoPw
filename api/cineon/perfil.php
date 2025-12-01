@@ -14,4 +14,7 @@ if(!$perfil){
 echo json_encode([
     'error' => false,
     'perfil' =>$perfil]);
+    
+$_SESSION['perfil_id'] = $perfil['id'];
+
     ?>
