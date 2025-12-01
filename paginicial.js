@@ -26,6 +26,18 @@ const divFilmes= document.querySelector("#FilmesDiv")
 
 
 
+let data=await fetch('api/auth/paginaInicial.php')// busca os dados da api
+data=await data.json()
+if(data.error){// se der erro redireciona pro login
+    window.location.href="login.html"
+}  
+const Filmes=data.filmes // pega os filmes da api
+const userLogado=data.perfil // pega o perfil logado
+const perfilLogado=userLogado.perfil.find(p => p.nomePerfil === data.perfil.perfil)// pega o perfil especifico que ta logado
+imgPerfil.src=perfilLogado.fotoPerfil // coloca a foto do perfil na pagina inicial
+
+
+
 
 async function exibirFilmes(){
     const genreMap = {
