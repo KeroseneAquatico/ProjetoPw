@@ -1,88 +1,82 @@
-const listaDiv = document.querySelector("#perfilDiv");
-let ClicadoEditar_btn=false;// vai ser usado dps no código para editar qualquer perfil q o usuario tenha
-const logout= document.querySelector("#logout");
+const perfilDiv = document.querySelector("#perfilDiv");
+const logout = document.querySelector("#logout");
 
+let perfis = await fetch('api/cineon/listarPerfil.php',{
+    method:'GET'
+}).then(res => res.json());// pega os perfis do user logado
+const user = await fetch('api/auth/usuarioLogado.php',{
+    method:'GET'
+}).then(res => res.json());// pega os dados do user logado 
 
-const todosUsuarios=JSON.parse(localStorage.getItem('usuarios'));// pega os usuarios
-
-const acharUserLogado = localStorage.getItem('userLogado');
-const userLogado = JSON.parse(acharUserLogado);//acha quem logou de todos os usuários
-
-const FotosPerfil = [
-  "assets/img1.jpg", "assets/img2.jpg", "assets/img3.jpg", "assets/img4.jpg", "assets/img5.jpg",
-  "assets/img6.jpg", "assets/img7.jpg", "assets/img8.jpg", "assets/img9.jpg", "assets/img10.jpg"
-];// fotos para editar ou colocar no perfil
 
 logout.addEventListener("click", ()=>{
-    localStorage.removeItem('userLogado');
+    fetch('api/cineon/logout.php',{
+        method:'GET'})
     window.location.href='login.html'
 }) //ele tira quem logou do local storage e volta pra pagina de login
 
 
-function MostrarPerfil() {
-  listaDiv.innerHTML = "";
-// pega de dentro do user logado o array de perfil dele 
-  userLogado.perfil.forEach(profile => {
-    const perfilDiv = document.createElement("div");
-    perfilDiv.innerHTML = `
-      <img src='${profile.imagemPerfil}' id='Redirect'><br>
-      <h1>${profile.nomePerfil}</h1>
-      <button class='editPerfil'>Editar Perfil</button>
+function MostrarPerfis() {
+  perfilDiv.innerHTML = "";
+    perfis.perfis.forEach(perfil => {
+    const div = document.createElement("div");
+    div.classList.add("perfil-card");
+    div.innerHTML = `
+      <img src='${perfil.imagem}' id='Redirect'><br>
+      <h1>${perfil.nome}</h1>
+      <button class='btn-deletar'>Deletar Perfil</button>
     `;
 
-    listaDiv.append(perfilDiv);
-    const Redirect = perfilDiv.querySelector("#Redirect");
+    perfilDiv.append(div);
+    const Redirect = div.querySelector("#Redirect");
     Redirect.addEventListener("click", () => {
-      const perfilLogado = JSON.stringify(profile);
-      
-      localStorage.setItem('perfilLogado', perfilLogado);    
+      fetch('api/cineon/selecionarPerfil.php', {
+        method: 'GET'})
       window.location.href = "paginicial.html";
     });// manda qual dos perfil logou e manda pra pagina inicial
 
-    const editPerfil = perfilDiv.querySelector(".editPerfil");
 
-  editPerfil.addEventListener("click", EditandoPerfil);
-  function EditandoPerfil(){
-     ClicadoEditar_btn=true;// aq o ngc de editar algum perfil vira verdade
-     perfilSendoEditado = profile;// qual perfil eu vou editar
-     CriarPerfil();// tem aq dentro o ngc pra mudar o perfil
-  }
 
-  });
+  })
+
+  };
   if(userLogado.planoUser == "basico" && userLogado.perfil.length<3 ||userLogado.planoUser == "padrao" && userLogado.perfil.length<4 ||userLogado.planoUser == "premium" && userLogado.perfil.length<5){ //Aq tem a logica para criar o botão de adicionar usuarios dependendo de quantos ele pode por plano
     const botaoCriar= document.createElement("button")
     perfilDiv.append(botaoCriar)
     botaoCriar.innerHTML=`Criar Perfil`
     botaoCriar.addEventListener("click",() =>{CriarPerfil()})
   }
-}
+
 MostrarPerfil();// chama pra aparecer tudo na tela de inicio
 
-function CriarPerfil() {
+async function CriarPerfil() {
   //limpa pra fazer o ngc de criar perfil
-  listaDiv.innerHTML = "";
+  perfilDiv.innerHTML = "";
   
   const divCriaPerfil = document.createElement("div");
   divCriaPerfil.classList.add("criar-perfil");
   
   divCriaPerfil.innerHTML = `
+  <form id="formCriarPerfil">
   <h2>Criar Novo Perfil</h2>
   <label for="nomePerfil">Nome do Perfil:</label>
-  <input type="text" id="nomePerfil" placeholder="Digite um nome">
+  <input type="text" id="nomePerfil" name="nomePerfil" placeholder="Digite um nome">
   <div id="fotosPerfil" class="galeria-fotos"></div>
   <p id="mensagemPerfil"></p>
   <button id="btnCriar">Criar Perfil</button>
   <button id="btnCancelar">Cancelar</button>
-  `;
+  </form>`;
   
-  listaDiv.append(divCriaPerfil);
+  perfilDiv.append(divCriaPerfil);
+  
+  
   
   const Galeria = document.querySelector("#fotosPerfil");
   const NomePerfil = divCriaPerfil.querySelector("#nomePerfil");
   const MensagemPerfil = divCriaPerfil.querySelector("#mensagemPerfil");
   const PerfilCriar_btn = divCriaPerfil.querySelector("#btnCriar");
   const btnCancelar = divCriaPerfil.querySelector("#btnCancelar");
-
+  
   function ListaFotos() {
     FotosPerfil.forEach((foto, i) => {
       const divFoto = document.createElement("div");
@@ -100,58 +94,36 @@ function CriarPerfil() {
   ListaFotos();// aq nós chamamos a lista
   
   //Consigo chamar na hora de editar pefil!
-  PerfilCriar_btn.addEventListener("click", CriarPerfil);// isso cria o perfil mesmo
+  PerfilCriar_btn.addEventListener("click", gozeil);// isso cria o perfil mesmo
   btnCancelar.addEventListener("click", () => {
     MostrarPerfil();// se ela cancelar volta pra lista normal
     return;
   })
-  function CriarPerfil (){
+ async function gozeil (){
     
     
     const selecionada = Galeria.querySelector(".foto.selecionado");// achamos qual foto a pessoa escolheu
     
-    if (NomePerfil.value === "") {// Se tem nome passa se não para aq
-      MensagemPerfil.innerHTML = "Insira o seu nome, por favor!";
-    } else if (!selecionada) {// se selecionou uma foto passa se não para aq 
-      MensagemPerfil.innerHTML = "Escolha uma foto para conseguirmos criar seu perfil!";
-    } 
-    else {// Para ver se é um ediçao de perfil ou a primeira criação
-      if( ClicadoEditar_btn==true){
-        perfilSendoEditado.nomePerfil = NomePerfil.value;
-        perfilSendoEditado.imagemPerfil = selecionada.src;
-        // aq só muda os valores e etc
-      } else if(nomePerfilJaExistente(userLogado,NomePerfil.value)){// já tem um perfil com esse nome
-        alert(`Já existe um perfil com o nome ${NomePerfil.value}! Por favor escolha outro`)
-        NomePerfil.value=''
-          return;
-      }else {
-          //cria o objeto
-          const perfilCriado = {
-            nomePerfil: NomePerfil.value,
-            imagemPerfil: selecionada.src,
-            assistirMaisTarde:[],
-            assistidoRecente: [],
-          };
-          userLogado.perfil.push(perfilCriado);// coloca no usuário
-        }
+    
+    if(nomePerfilJaExistente(userLogado,NomePerfil.value)){// já tem um perfil com esse nome
+      MensagemPerfil.innerHTML = `Já existe um perfil com o nome ${NomePerfil.value}! Por favor escolha outro`
+      NomePerfil.value=''
+      return;
+    }else{
 
-      // userLogado.perfil.push(perfilCriado);
+      const formCriarPerfil = document.querySelector("#formCriarPerfil");
+      const formDataCriar = new FormData(formCriarPerfil);
+      const data = await fetch('api/cineon/criarPerfil.php', {
+        method: 'POST',
+        body: formDataCriar
+      }).then(res => res.json()); 
+      MensagemPerfil.innerHTML = data.message;
+    }
 
-      
-      const index = todosUsuarios.findIndex(u => u.email === userLogado.email);// procura quem q fez esse novo perfil no array de usuarios inteiro
-
-      if (index !== -1) {// se achou coloca no que tiver achado o bglh
-        todosUsuarios[index].perfil=userLogado.perfil;
-        localStorage.setItem('usuarios', JSON.stringify(todosUsuarios));//atualiza o local storage q tem todos os usuarios
-      }
-
-      localStorage.setItem('userLogado', JSON.stringify(userLogado));//atualiza o local storage de quem logou
-
-      MensagemPerfil.innerHTML = "Perfil criado com sucesso!";// avisa q criar funcionou
       MostrarPerfil();//mostra a lista de todos os perfils dnv
     }
  }
-}
+
 function nomePerfilJaExistente(userLogado, nome) {// passa o user logado e o nome do perfil como parametro
     return userLogado.perfil.some(p => p.nomePerfil === nome);// SE TEM ALGUM PERFIL Q TEM O MSM NOME Q TAO QUERENDO COLOCAR ELE NAO VAI DEIXAR LÁ NO IF
 }
