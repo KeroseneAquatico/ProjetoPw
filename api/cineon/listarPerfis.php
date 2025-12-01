@@ -1,7 +1,8 @@
 <?php
 
 include '../connection.php';
-include '../session.php';
+
+session_start();
 
 $stmt = $conn->prepare("SELECT id,nome,imagem FROM perfis WHERE usuario_id = ?");
 $stmt->execute([ $_SESSION['user_id']]);

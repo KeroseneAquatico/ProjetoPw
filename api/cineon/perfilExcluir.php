@@ -1,7 +1,7 @@
 <?php
 
 include '../connection.php';
-include '../session.php';
+session_start();
 
 $perfilId = $_GET['perfilId'];
 $userId = $_SESSION['user_id'];

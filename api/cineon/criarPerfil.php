@@ -1,7 +1,8 @@
 <?php
 
 include '../connection.php';
-include '../session.php';
+session_start();
+
 
 $userId = $_SESSION['user_id'];
 $nomePerfil = $_POST('nomePerfil');

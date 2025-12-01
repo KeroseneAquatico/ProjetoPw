@@ -1,7 +1,8 @@
 <?php
 
 include '../connection.php';
-include '../session.php';
+
+session_start();
 
 $stmt = $conn->prepare("SELECT id,nome,imagem FROM perfis WHERE id = ?");
 $stmt -> execute([ $_GET['perfil_id'] ]);
@@ -14,7 +15,7 @@ if(!$perfil){
 echo json_encode([
     'error' => false,
     'perfil' =>$perfil]);
-    
+
 $_SESSION['perfil_id'] = $perfil['id'];
 
     ?>
