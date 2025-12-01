@@ -42,7 +42,7 @@ if(strlen($password) < 8){
 }
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-$stmt = $conn->prepare("INSERT INTO users (name, email, password, plano_assinatura) VALUES (?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO usuarios (name, email, password, plano_assinatura) VALUES (?, ?, ?, ?)");
 if($stmt->execute([ $name, $email, $hashedPassword, $planoAssinatura])){
     echo json_encode([
         "error" => false,
