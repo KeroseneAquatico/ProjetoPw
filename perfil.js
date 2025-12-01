@@ -1,14 +1,15 @@
 const perfilDiv = document.querySelector("#perfilDiv");
 const logout = document.querySelector("#logout");
 
-let perfis = await fetch('api/cineon/listarPerfil.php',{
+const perfis = await fetch('api/cineon/listarPerfil.php',{
     method:'GET'
 }).then(res => res.json());// pega os perfis do user logado
 const user = await fetch('api/auth/usuarioLogado.php',{
     method:'GET'
 }).then(res => res.json());// pega os dados do user logado 
 
-
+console.log(perfis);
+console.log(user);
 logout.addEventListener("click", ()=>{
     fetch('api/cineon/logout.php',{
         method:'GET'})
