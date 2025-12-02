@@ -1,16 +1,14 @@
 <?php
+
 include "../connection.php";
-include "session.php";
 
-$userId = $_SESSION['user_id'] ?? null;
-if (!$userId) {
-    echo json_encode(['error' => true, 'message' => 'Usuário não autenticado']);
-    exit;
-}
+session_start();
+$userId = $_SESSION['id'] ?? null;
+$perfilId = $_SESSION['perfil_id'] ?? null;
 
-$stmtUser = $conn->prepare("SELECT id, perfil, nome, email FROM usuarios WHERE id = :id LIMIT 1");
-$stmtUser->bindValue(':id', $userId);
-$stmtUser->execute();
+
+$stmtUser = $conn->prepare("SELECT id, perfil, imagem, nome FROM perfis WHERE usuarios.id = ? LIMIT 1");
+$stmtUser->execute([$userId]);
 $user = $stmtUser->fetch();
 
 if (!$user) {
@@ -22,16 +20,28 @@ $stmt = $conn->prepare("SELECT * FROM filmes");
 $stmt->execute();
 $filmes = $stmt->fetchAll();
 
+$filmearray= [];
+foreach ($filmes as &$filme) {
+    $filmearray[] = [
+        'id' => $filme['id'],
+        'titulo' => $filme['titulo'],
+        'descricao' => $filme['descricao'],
+        'genero' => $filme['genero'],
+        'ano' => $filme['ano'],
+        'capa' => $filme['capa']
+    ];
+}
+
 $res = [
     'perfil' => [
         'id' => $user['id'],
         'perfil' => $user['perfil'] ?? null,
         'nome' => $user['nome'] ?? null,
-        'email' => $user['email'] ?? null
+        'imagem' => $user['email'] ?? null
     ],
-    'filmes' => $filmes
+    'filmes' => $filmearray
 ];
 
-echo json_encode($response);
+echo json_encode($res);
 exit;
 ?>
