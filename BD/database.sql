@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
 CREATE TABLE IF NOT EXISTS perfis (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nome VARCHAR(250) NOT NULL,
-    imagem VARCHAR(250) NOT NULL,
     usuario_id INT NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
