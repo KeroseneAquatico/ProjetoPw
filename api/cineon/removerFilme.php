@@ -1,6 +1,8 @@
 <?php
 
 include "../connection.php";
-include "../session.php";
+session_start();
+
+
 
 unset($_SESSION['filme_id']);

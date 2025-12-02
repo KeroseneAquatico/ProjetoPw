@@ -4,7 +4,7 @@ include '../connection.php';
 
 session_start();
 
-$stmt = $conn->prepare("SELECT id,nome,imagem FROM perfis WHERE id = ?");
+$stmt = $conn->prepare("SELECT id,nome FROM perfis WHERE id = ?");
 $stmt -> execute([ $_GET['perfil_id'] ]);
 $perfil = $stmt->fetch();
 

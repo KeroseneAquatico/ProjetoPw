@@ -6,7 +6,7 @@ session_start();
 $perfilId = $_SESSION['perfil_id'] ?? null;
 
 
-$stmtUser = $conn->prepare("SELECT id, perfil, imagem, nome FROM perfis WHERE perfis.id = ? LIMIT 1");
+$stmtUser = $conn->prepare("SELECT id, perfil, nome FROM perfis WHERE perfis.id = ? LIMIT 1");
 $stmtUser->execute([$perfilId]);
 $user = $stmtUser->fetch();
 
@@ -36,7 +36,6 @@ $res = [
         'id' => $user['id'],
         'perfil' => $user['perfil'] ?? null,
         'nome' => $user['nome'] ?? null,
-        'imagem' => $user['email'] ?? null
     ],
     'filmes' => $filmearray
 ];

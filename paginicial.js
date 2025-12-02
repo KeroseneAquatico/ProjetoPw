@@ -173,35 +173,14 @@ function exibirAssistidosRecentemente() {// mesma lógica da de cima só q pra o
 
 Surpresa.addEventListener("click", () => {
     const filmeAleatorio = Math.round(Math.random()*Filmes.length)// pega um filme aleatório do array
-
-     const jaAssistido = perfilLogado.assistidoRecente.find(f => f.titulo === Filmes[filmeAleatorio].titulo);
-    if (!jaAssistido) {
-        perfilLogado.assistidoRecente.unshift(Filmes[filmeAleatorio]);
-        // Limita a lista para os 10 mais recentes
-        if (perfilLogado.assistidoRecente.length > 10) {
-            perfilLogado.assistidoRecente.pop();
-        }
-
-        const perfilIndex = userLogado.perfil.findIndex(p => p.nomePerfil === perfilLogado.nomePerfil);
-        userLogado.perfil[perfilIndex] = perfilLogado;
-
-        const userIndex = usuarios.findIndex(u => u.email === userLogado.email);
-        usuarios[userIndex] = userLogado;
-
-        localStorage.setItem('perfilLogado', JSON.stringify(perfilLogado));
-        localStorage.setItem('userLogado', JSON.stringify(userLogado));
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-        // arrumar em todos os lugares no local storage a alteração
-    }
-
     const FilmeAssistir=Filmes[filmeAleatorio]
-    localStorage.setItem('FilmeAssistir',JSON.stringify (FilmeAssistir))// coloca no local storage
     window.location.href='filme.html'// manda pra pagina de filme
 
-    
-})
-perfilVoltar.addEventListener("click", () =>{
 
+})
+
+perfilVoltar.addEventListener("click", () =>{
+    
     window.location.href='perfil.html'// volta pra seleção de perfil
 })
 logout.addEventListener("click", () => {
