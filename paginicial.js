@@ -34,7 +34,7 @@ if(data.error){// se der erro redireciona pro login
 const Filmes=data.filmes // pega os filmes da api
 const userLogado=data.perfil // pega o perfil logado
 const perfilLogado=userLogado.perfil.find(p => p.nomePerfil === data.perfil.perfil)// pega o perfil especifico que ta logado
-imgPerfil.src=perfilLogado.fotoPerfil // coloca a foto do perfil na pagina inicial
+imgPerfil.src="assets/img1" // coloca a foto do perfil na pagina inicial
 
 
 
@@ -180,7 +180,7 @@ Surpresa.addEventListener("click", () => {
 })
 
 perfilVoltar.addEventListener("click", () =>{
-    
+
     window.location.href='perfil.html'// volta pra seleção de perfil
 })
 logout.addEventListener("click", () => {
