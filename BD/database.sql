@@ -48,13 +48,6 @@ CREATE TABLE IF NOT EXISTS assistido_recente (
     FOREIGN KEY (perfil_id) REFERENCES perfis(id),
     FOREIGN KEY (filme_id) REFERENCES filmes(id)
 );
-CREATE TABLE IF NOT EXISTS assistir_mais_tarde (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    perfil_id INT NOT NULL,
-    filme_id INT NOT NULL,
-    FOREIGN KEY (perfil_id) REFERENCES perfis(id),
-    FOREIGN KEY (filme_id) REFERENCES filmes(id)
-);
 
 -- Planos de exemplo
 INSERT INTO planos(nome, max_perfis) VALUES ('Básico', 1), ('Padrão', 4), ('Premium', 6);
