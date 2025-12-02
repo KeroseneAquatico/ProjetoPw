@@ -3,7 +3,6 @@
 include "../connection.php";
 
 session_start();
-$userId = $_SESSION['id'] ?? null;
 $perfilId = $_SESSION['perfil_id'] ?? null;
 
 
