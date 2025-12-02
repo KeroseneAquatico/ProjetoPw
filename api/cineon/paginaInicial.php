@@ -7,8 +7,8 @@ $userId = $_SESSION['id'] ?? null;
 $perfilId = $_SESSION['perfil_id'] ?? null;
 
 
-$stmtUser = $conn->prepare("SELECT id, perfil, imagem, nome FROM perfis WHERE usuarios.id = ? LIMIT 1");
-$stmtUser->execute([$userId]);
+$stmtUser = $conn->prepare("SELECT id, perfil, imagem, nome FROM perfis WHERE perfis.id = ? LIMIT 1");
+$stmtUser->execute([$perfilId]);
 $user = $stmtUser->fetch();
 
 if (!$user) {
