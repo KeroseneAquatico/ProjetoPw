@@ -1,19 +1,32 @@
 <?php
 
-include '../connection.php';
+include "../connection.php";
 
 session_start();
-
-$stmt = $conn->prepare("SELECT id,nome FROM perfis WHERE usuario_id = ?");
-$stmt->execute([ $_SESSION['user_id']]);
-$perfis = $stmt->fetchAll();
+$id = $_SESSION['id'] ?? null;
 
 
-if(!$perfis){
-    echo json_encode(['error' => true, 'message' => 'Nenhum perfil encontrado']);
+$stmt = $conn->prepare("SELECT id, nome FROM perfis WHERE usuario_id = ?");
+$stmt->execute([$id]);
+$data = $stmt->fetchAll();
+$perfis = [];
+
+if(count($data) === 0){
+    echo json_encode([
+        'error' => true,
+        'message' => 'Nenhum perfil encontrado para este usuário!'
+    ]);
     exit;
 }
+
+foreach($data as $perfil){
+    $perfis[] = [
+        'id' => $perfil['id'],
+        'nome' => $perfil['nome'],
+    ];
+};
+
 echo json_encode([
     'error' => false,
-    'perfis' =>$perfis]);
-    ?>
+    'perfis' => $perfis
+]);
