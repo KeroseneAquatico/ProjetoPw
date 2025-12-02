@@ -2,7 +2,7 @@
 
 
 include '../connection.php';
-include '../auth/session.php';
+session_start();
 
 $filmeID = $_SESSION['filme_id'];
 
